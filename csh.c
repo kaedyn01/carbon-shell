@@ -7,7 +7,6 @@ void prompt() {
 
 /* This function gets input from user and uses malloc()
  * to store in input in an array of characters. 
- *
  */
 void *get_input_line() {
     char *line = malloc(sizeof(char) * 256);
