@@ -5,6 +5,16 @@ void prompt() {
     printf("> ");
 }
 
+/* This function gets input from user and uses malloc()
+ * to store in input in an array of characters. 
+ *
+ */
+void *get_input_line() {
+    char *line = malloc(sizeof(char) * 256);
+    fgets(line, sizeof(line), stdin);
+    return line;
+}
+
 void loop() {
     char *line;
     char **args;
@@ -12,6 +22,9 @@ void loop() {
 }
 
 int main(void) {
-    prompt();
-    return 0; 
+    char *line = get_input_line();
+    printf("%s\n", line);
+    free(line);
+
+    return 0;
 }
