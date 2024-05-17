@@ -6,6 +6,8 @@
 #define MAX_BUFFER 256
 
 void echo(char *string) {
+    // TODO: Add if statement that ensures there's only one newline 
+    // character at the end of the printed string. 
     printf("%s\n", string);
 }
 
@@ -18,7 +20,7 @@ void prompt() {
  */
 char *get_input_line() {
     char *line = malloc(sizeof(char) * MAX_BUFFER);
-    fgets("%s", line);
+    fgets(line, MAX_BUFFER, stdin);
     return line;
 }
 
