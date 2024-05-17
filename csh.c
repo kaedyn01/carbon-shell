@@ -1,6 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define TRUE 1 
+#define FALSE 0
+#define MAX_BUFFER 256
+
+void echo(char *string) {
+    printf("%s\n", string);
+}
+
 void prompt() {
     printf("> ");
 }
@@ -8,22 +16,24 @@ void prompt() {
 /* This function gets input from user and uses malloc()
  * to store in input in an array of characters. 
  */
-void *get_input_line() {
-    char *line = malloc(sizeof(char) * 256);
-    fgets(line, sizeof(line), stdin);
+char *get_input_line() {
+    char *line = malloc(sizeof(char) * MAX_BUFFER);
+    fgets("%s", line);
     return line;
 }
 
 void loop() {
-    char *line;
-    char **args;
-    int status = 1;
+    while (TRUE) {
+        prompt();
+        char *line = get_input_line();
+        echo(line);
+        free(line);
+    }
 }
 
 int main(void) {
-    char *line = get_input_line();
-    printf("%s\n", line);
-    free(line);
+    
+    loop();
 
     return 0;
 }
