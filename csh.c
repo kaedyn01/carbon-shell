@@ -5,12 +5,18 @@
 #define FALSE 0
 #define MAX_BUFFER 256
 
+/* Given a string. This function will output said string
+ * to the standard out (most likely the terminal window).
+ */
 void echo(char *string) {
     // TODO: Add if statement that ensures there's only one newline 
     // character at the end of the printed string. 
     printf("%s\n", string);
 }
 
+/* This function prints the character indicating a user
+ * should begin typing their command. 
+ */
 void prompt() {
     printf("> ");
 }
@@ -24,6 +30,9 @@ char *get_input_line() {
     return line;
 }
 
+/* This function is the main loop for the shell. It gets
+ * user input and executes the specified command.
+ */
 void loop() {
     while (TRUE) {
         prompt();
@@ -33,6 +42,8 @@ void loop() {
     }
 }
 
+/* Main function that starts the shell.
+ */
 int main(void) {
     
     loop();
