@@ -6,8 +6,6 @@
 #define FALSE 0
 #define MAX_BUFFER 256
 
-
-
 /* This function prints the character indicating a user
  * should begin typing their command. 
  */
