@@ -26,8 +26,19 @@ void echo(char *string) {
 char *get_input_line() {
     char *line = malloc(sizeof(char) * MAX_BUFFER);
     fgets(line, MAX_BUFFER, stdin);               
-    line[strcspn(line, "\n")] = '\0';   // Removes added newline from user input. 
+    line[strcspn(line, "\n")] = '\0';   // Removes added newline from user input.
     return line;
+}
+
+/* If the two strings are equal, returns 1 (TRUE).
+ * Otherwise, returns 0 (FALSE).
+ */
+int are_strings_equal(char *string1, char *string2) {
+    if (strstr(string1, string2) != NULL && strlen(string1) == strlen(string2)) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }
 
 /* This function is the main loop for the shell. It gets
@@ -37,7 +48,14 @@ void loop() {
     while (TRUE) {
         prompt();
         char *line = get_input_line();
-        echo(line);
+
+        if (are_strings_equal(line, "exit")) {
+            free(line);
+            return;
+        } else {
+            echo(line);
+        }   
+
         free(line);
     }
 }
