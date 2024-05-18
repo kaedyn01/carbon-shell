@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <dirent.h>
 
 #define TRUE 1 
 #define FALSE 0
@@ -11,6 +12,26 @@
  */
 void prompt() {
     printf("> ");
+}
+
+/* This function serves to add the functionality 
+ * of listing all the contents of the current directory.
+ * Equivalent to "ls" in bash.
+ */
+void ls() {
+    struct dirent *entry;
+    DIR *dp = opendir(".");
+
+    if (dp == NULL) {
+        perror("opendir");
+        return;
+    }
+
+    while ((entry = readdir(dp))) {
+        printf("%s\n", entry->d_name);
+    }
+
+    closedir(dp);
 }
 
 /* Given a string. This function will output said string
@@ -52,9 +73,11 @@ void loop() {
         if (are_strings_equal(line, "exit")) {
             free(line);
             return;
+        } else if (are_strings_equal(line, "ls")) {
+            ls();
         } else {
             echo(line);
-        }   
+        } 
 
         free(line);
     }
