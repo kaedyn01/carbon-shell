@@ -7,8 +7,14 @@
 #define TRUE 1 
 #define FALSE 0
 
-/* This function is the main loop for the shell. It gets
- * user input and executes the specified command.
+/**
+ * @brief Continuously runs the shell program.
+ *
+ * This function continuosly loops, asking the user for input
+ * until they want to exit the program. Checks input and executes
+ * programs as specified by the user.
+ *
+ * @see ls() echo()
  */
 void loop() {
     while (TRUE) {
@@ -44,7 +50,12 @@ void loop() {
     }
 }
 
-/* Main function that starts the shell.
+/**
+ * @brief Main function that starts the shell.
+ *
+ * Main function that starts the shell.
+ *
+ * @return N/a
  */
 int main(void) {
     
