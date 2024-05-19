@@ -1,14 +1,21 @@
 #ifndef BUILT_IN_COMMANDS_H
 #define BUILT_IN_COMMANDS_H
 
-/* This function serves to add the functionality 
- * of listing all the contents of the current directory.
- * Equivalent to "ls" in bash.
+/**
+ * @brief Lists all files in working directory.
+ *
+ * Lists all files in the working directory. Equivalent to the 
+ * command by the same name in bash.
  */
 void ls();
 
-/* Given a string. This function will output said string
- * to the standard out (most likely the terminal window).
+/**
+ * @brief Prints inputted string to the stdout.
+ *
+ * Takes a string as input, and outputs said string to the
+ * stdout.
+ *
+ * @param[in] string String to be outputted.
  */
 void echo(char *string);
 
