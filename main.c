@@ -6,7 +6,6 @@
 
 #define TRUE 1 
 #define FALSE 0
-#define MAX_BUFFER 256
 
 /* This function is the main loop for the shell. It gets
  * user input and executes the specified command.
