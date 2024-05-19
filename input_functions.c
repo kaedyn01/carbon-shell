@@ -5,13 +5,20 @@
 
 #define MAX_BUFFER 256
 
-/* This function takes in a string as input, splits it by the 
- * inputted delimiter char, and returns the split string as 
- * as an array of strings. Also stores the number of strings
- * in num_tokens int pointer. 
+/**
+ * @brief Splits string by passed delimeter.
  *
- * The corresponding free function "free_tokens" frees all the 
- * memory allocated by this function.
+ * This function takes a string and delimeter as input, and
+ * splits the string into an array of substrings terminated
+ * by a null pointer. This function also stores the length
+ * of the array in the integer pointer num_tokens.
+ *
+ * @param[in] line The line that the user wants to split.
+ *
+ * @param[in] delim The delimiter that the string will by split\
+ *      by.
+ *
+ * @return An array of strings terminated by a null pointer.
  */
 char **split_line(char *line, char *delim, int *num_tokens) {
     char *line_copy = strdup(line);
@@ -49,8 +56,16 @@ char **split_line(char *line, char *delim, int *num_tokens) {
     return tokens;
 }
 
-/* Frees all the memory of an array of strings allocated by 
- * split_line.
+/**
+ * @brief Frees all the memory allocated by prompt().
+ *
+ * This function takes an array of strings terminated by a null
+ * pointer and frees all of its memory.
+ *
+ * @param[in] tokens The array of strings, terminated by a null\ 
+ *      pointer, that the user wants to free from memory.
+ *
+ * @see prompt()
  */
 void free_tokens(char **tokens) {
     for(int i = 0; tokens[i] != NULL; i++) {
@@ -59,8 +74,12 @@ void free_tokens(char **tokens) {
     free(tokens);
 }
 
-/* This function gets input from user and uses malloc()
- * to store in input in an array of characters. 
+/**
+ * @brief Gets and returns input from the user.
+ *
+ * This function gets input from user and uses malloc() to store
+ *
+ * @return A string holding user input.
  */
 char *get_input_line() {
     char *line = malloc(sizeof(char) * MAX_BUFFER);
@@ -69,11 +88,28 @@ char *get_input_line() {
     return line;
 }
 
-/* This function prints the character indicating a user
+/**
+ * @brief Prompts for input and returns input as array of strings.
+ * 
+ * This function prints the character indicating a user
  * should begin typing their command. Then gets the user's
  * input and returns it as an array of strings. It also 
  * takes an int pointer as an arg to store the number 
  * of arguements in the user's input.
+ *
+ * @param[in] prompt_string The string displayed to the user when\
+ *      prompting for input.
+ *
+ * @param[out] num_args The variable used to save the number of elements\
+ *      in the array of strings.
+ *
+ * @param[out] original_input The variable used to save the original string\
+ *      input.
+ *
+ * @return An array of strings, terminated by a NULL pointer, where each\ 
+ *      string is word in the command that the user typed.
+ *
+ * @see free_tokens() 
  */
 char **prompt(char *prompt_string, int *num_args, char *original_input) {
     char *delim = malloc(sizeof(char));
