@@ -51,17 +51,6 @@ char *get_input_line() {
     return line;
 }
 
-/* If the two strings are equal, returns 1 (TRUE).
- * Otherwise, returns 0 (FALSE).
- */
-int are_strings_equal(char *string1, char *string2) {
-    if (strstr(string1, string2) != NULL && strlen(string1) == strlen(string2)) {
-        return TRUE;
-    } else {
-        return FALSE;
-    }
-}
-
 /* This function is the main loop for the shell. It gets
  * user input and executes the specified command.
  */
@@ -70,14 +59,20 @@ void loop() {
         prompt();
         char *line = get_input_line();
 
-        if (are_strings_equal(line, "exit")) {
+        if (strcmp(line, "ls") == 0) {
+            printf("TODO: IMPLEMENT ls\n");
+        } else if (strcmp(line, "cd") == 0) {
+            printf("TODO: IMPLEMENT cd\n");
+        } else if (strcmp(line, "mkdir") == 0) {
+            printf("TODO: IMPLEMENT mkdir\n");
+        } else if (strcmp(line, "touch") == 0) {
+            printf("TODO: IMPLEMENT touch\n");
+        } else if (strcmp(line, "exit") == 0) {
             free(line);
             return;
-        } else if (are_strings_equal(line, "ls")) {
-            ls();
         } else {
             echo(line);
-        } 
+        }
 
         free(line);
     }
