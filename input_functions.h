@@ -27,6 +27,6 @@ char *get_input_line();
  * takes an int pointer as an arg to store the number 
  * of arguements in the user's input.
  */
-char **prompt(char *prompt_string, int *num_args);
+char **prompt(char *prompt_string, int *num_args, char *original_input);
 
 #endif

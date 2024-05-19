@@ -13,7 +13,10 @@
 void loop() {
     while (TRUE) {
         int *num_args = malloc(sizeof(int));
-        char **user_args = prompt("> ", num_args);
+        char *original_input = NULL;
+        char **user_args = NULL;
+        
+        user_args = prompt("> ", num_args, original_input);
 
         if (strcmp(user_args[0], "ls") == 0) {
             ls();
@@ -36,6 +39,7 @@ void loop() {
         }
 
         free(num_args);
+        free(original_input);
         free_tokens(user_args);
     }
 }

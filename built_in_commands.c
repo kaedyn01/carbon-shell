@@ -26,5 +26,5 @@ void ls() {
  * to the standard out (most likely the terminal window).
  */
 void echo(char *string) {
-    printf("\"%s\"\n", string);
+    printf("%s\n", string);
 }

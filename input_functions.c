@@ -75,7 +75,7 @@ char *get_input_line() {
  * takes an int pointer as an arg to store the number 
  * of arguements in the user's input.
  */
-char **prompt(char *prompt_string, int *num_args) {
+char **prompt(char *prompt_string, int *num_args, char *original_input) {
     char *delim = malloc(sizeof(char));
     *delim = ' ';
     char *input_line = NULL;
@@ -85,6 +85,7 @@ char **prompt(char *prompt_string, int *num_args) {
 
     input_line = get_input_line();
     input_args = split_line(input_line, delim, num_args);
+    original_input = strdup(input_line);
 
     free(delim);
     free(input_line);
