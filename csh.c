@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <dirent.h>
+#include "built_in_commands.h"
 
 #define TRUE 1 
 #define FALSE 0
@@ -12,33 +12,6 @@
  */
 void prompt() {
     printf("> ");
-}
-
-/* This function serves to add the functionality 
- * of listing all the contents of the current directory.
- * Equivalent to "ls" in bash.
- */
-void ls() {
-    struct dirent *entry;
-    DIR *dp = opendir(".");
-
-    if (dp == NULL) {
-        perror("opendir");
-        return;
-    }
-
-    while ((entry = readdir(dp))) {
-        printf("%s\n", entry->d_name);
-    }
-
-    closedir(dp);
-}
-
-/* Given a string. This function will output said string
- * to the standard out (most likely the terminal window).
- */
-void echo(char *string) {
-    printf("\"%s\"\n", string);
 }
 
 /* This function gets input from user and uses malloc()
@@ -60,7 +33,7 @@ void loop() {
         char *line = get_input_line();
 
         if (strcmp(line, "ls") == 0) {
-            printf("TODO: IMPLEMENT ls\n");
+            ls();
         } else if (strcmp(line, "cd") == 0) {
             printf("TODO: IMPLEMENT cd\n");
         } else if (strcmp(line, "mkdir") == 0) {
