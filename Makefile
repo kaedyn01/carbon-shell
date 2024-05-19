@@ -34,5 +34,5 @@ clean:
 # Rebuild the project from scratch
 rebuild: clean all
 
-# Phony targets (do not correspond to actual files)
+# Phony targets (these targets do not correspond to actual files)
 .PHONY: all clean rebuild
