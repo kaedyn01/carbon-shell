@@ -1,11 +1,6 @@
 #ifndef INPUT_FUNCTIONS_H
 #define INPUT_FUNCTIONS_H
 
-/* This function prints the character indicating a user
- * should begin typing their command. 
- */
-void prompt();
-
 /* This function takes in a string as input, splits it by the 
  * inputted delimiter char, and returns the split string as 
  * as an array of strings. Also stores the number of strings
@@ -25,5 +20,13 @@ void free_tokens(char **tokens);
  * to store in input in an array of characters. 
  */
 char *get_input_line();
+
+/* This function prints the character indicating a user
+ * should begin typing their command. Then gets the user's
+ * input and returns it as an array of strings. It also 
+ * takes an int pointer as an arg to store the number 
+ * of arguements in the user's input.
+ */
+char **prompt(char *prompt_string, int *num_args);
 
 #endif

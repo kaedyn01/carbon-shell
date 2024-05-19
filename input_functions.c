@@ -5,13 +5,6 @@
 
 #define MAX_BUFFER 256
 
-/* This function prints the character indicating a user
- * should begin typing their command. 
- */
-void prompt() {
-    printf("> ");
-}
-
 /* This function takes in a string as input, splits it by the 
  * inputted delimiter char, and returns the split string as 
  * as an array of strings. Also stores the number of strings
@@ -74,4 +67,27 @@ char *get_input_line() {
     fgets(line, MAX_BUFFER, stdin);               
     line[strcspn(line, "\n")] = '\0';   // Removes added newline from user input.
     return line;
+}
+
+/* This function prints the character indicating a user
+ * should begin typing their command. Then gets the user's
+ * input and returns it as an array of strings. It also 
+ * takes an int pointer as an arg to store the number 
+ * of arguements in the user's input.
+ */
+char **prompt(char *prompt_string, int *num_args) {
+    char *delim = malloc(sizeof(char));
+    *delim = ' ';
+    char *input_line = NULL;
+    char **input_args = NULL;
+
+    printf("%s", prompt_string);
+
+    input_line = get_input_line();
+    input_args = split_line(input_line, delim, num_args);
+
+    free(delim);
+    free(input_line);
+    
+    return input_args;
 }

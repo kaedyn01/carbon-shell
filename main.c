@@ -12,40 +12,31 @@
  */
 void loop() {
     while (TRUE) {
-        prompt();
-        char *line = get_input_line();
+        int *num_args = malloc(sizeof(int));
+        char **user_args = prompt("> ", num_args);
 
-        if (strcmp(line, "ls") == 0) {
+        if (strcmp(user_args[0], "ls") == 0) {
             ls();
-        } else if (strcmp(line, "cd") == 0) {
+        } else if (strcmp(user_args[0], "cd") == 0) {
             printf("TODO: IMPLEMENT cd\n");
-        } else if (strcmp(line, "mkdir") == 0) {
+        } else if (strcmp(user_args[0], "mkdir") == 0) {
             printf("TODO: IMPLEMENT mkdir\n");
-        } else if (strcmp(line, "touch") == 0) {
+        } else if (strcmp(user_args[0], "touch") == 0) {
             printf("TODO: IMPLEMENT touch\n");
-        } else if (strcmp(line, "exit") == 0) {
-            free(line);
+        } else if (strcmp(user_args[0], "exit") == 0) {
+            free(num_args);
+            free_tokens(user_args);
             return;
         } else {
-            // printf("csh: command not found: %s\n", line);
-            int *num_tokens = malloc(sizeof(int));
-            char *delim = malloc(sizeof(char));
-            *delim = ' ';
-
-            char **args = split_line(line, delim, num_tokens);
-
             int i = 0;
-            while (args[i] != NULL) {
-                printf("\"%s\"\n", args[i]);
+            while (user_args[i] != NULL) {
+                printf("\"%s\"\n", user_args[i]);
                 i++;
             }
-
-            free(num_tokens);
-            free(delim);
-            free_tokens(args);
         }
 
-        free(line);
+        free(num_args);
+        free_tokens(user_args);
     }
 }
 
