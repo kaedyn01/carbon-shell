@@ -27,7 +27,22 @@ void loop() {
             free(line);
             return;
         } else {
-            echo(line);
+            // printf("csh: command not found: %s\n", line);
+            int *num_tokens = malloc(sizeof(int));
+            char *delim = malloc(sizeof(char));
+            *delim = ' ';
+
+            char **args = split_line(line, delim, num_tokens);
+
+            int i = 0;
+            while (args[i] != NULL) {
+                printf("\"%s\"\n", args[i]);
+                i++;
+            }
+
+            free(num_tokens);
+            free(delim);
+            free_tokens(args);
         }
 
         free(line);
