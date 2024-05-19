@@ -57,7 +57,7 @@ char **split_line(char *line, char *delim, int *num_tokens) {
 }
 
 /* Frees all the memory of an array of strings allocated by 
- * split_line. 
+ * split_line.
  */
 void free_tokens(char **tokens) {
     for(int i = 0; tokens[i] != NULL; i++) {
