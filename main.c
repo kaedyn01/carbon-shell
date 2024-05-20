@@ -1,11 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "built_in_commands.h"
 #include "input_functions.h"
-
-#define TRUE 1 
-#define FALSE 0
 
 /**
  * @brief Continuously runs the shell program.
@@ -17,36 +15,26 @@
  * @see ls() echo()
  */
 void loop() {
-    while (TRUE) {
-        int *num_args = malloc(sizeof(int));
-        char *original_input = NULL;
-        char **user_args = NULL;
-        
-        user_args = prompt("> ", num_args, original_input);
+    while (true) {
+        struct user_input *input = prompt("> ");
 
-        if (strcmp(user_args[0], "ls") == 0) {
+        printf("we made it this far.\n"); // TDWD
+
+        if (input->tokens == NULL) {
+            continue;
+        } else if (strcmp(input->tokens[0], "ls") == 0) {
             ls();
-        } else if (strcmp(user_args[0], "cd") == 0) {
+        } else if (strcmp(input->tokens[0], "cd") == 0) {
             printf("TODO: IMPLEMENT cd\n");
-        } else if (strcmp(user_args[0], "mkdir") == 0) {
+        } else if (strcmp(input->tokens[0], "mkdir") == 0) {
             printf("TODO: IMPLEMENT mkdir\n");
-        } else if (strcmp(user_args[0], "touch") == 0) {
+        } else if (strcmp(input->tokens[0], "touch") == 0) {
             printf("TODO: IMPLEMENT touch\n");
-        } else if (strcmp(user_args[0], "exit") == 0) {
-            free(num_args);
-            free_tokens(user_args);
+        } else if (strcmp(input->tokens[0], "exit") == 0) {
             return;
         } else {
-            int i = 0;
-            while (user_args[i] != NULL) {
-                printf("\"%s\"\n", user_args[i]);
-                i++;
-            }
+            printf("csh: command not found: %s\n", input->tokens[0]);
         }
-
-        free(num_args);
-        free(original_input);
-        free_tokens(user_args);
     }
 }
 

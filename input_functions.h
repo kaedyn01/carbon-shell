@@ -1,6 +1,12 @@
 #ifndef INPUT_FUNCTIONS_H
 #define INPUT_FUNCTIONS_H
 
+struct user_input {
+    char **tokens;
+    int num_tokens;
+    char *original_string;
+};
+
 /**
  * @brief Splits string by passed delimeter.
  *
@@ -64,6 +70,6 @@ char *get_input_line();
  *
  * @see free_tokens() 
  */
-char **prompt(char *prompt_string, int *num_args, char *original_input);
+struct user_input *prompt(char *prompt_string);
 
 #endif

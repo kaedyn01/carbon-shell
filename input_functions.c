@@ -1,9 +1,76 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "input_functions.h"
 
 #define MAX_BUFFER 256
+
+struct user_input *interpret_input(char *input_line, char *delim) {
+    // Handle edge cases.
+    // Empty string
+    bool empty = strcmp(input_line, " ") == 0;
+    if (empty) {
+        return NULL;
+    }
+
+    // All whitespace. 
+    bool all_whitespace = true;
+    char *temp_line = strdup(input_line);
+
+    for (int i = 0; temp_line[i] != '\0'; i++) {
+        if (temp_line[i] != ' ') {
+            all_whitespace = false;
+            break;
+        }
+    }
+
+    free(temp_line);
+
+    if (all_whitespace) {
+        return NULL;
+    }
+
+    // No delimiters in string.
+    bool no_delimiters = true;
+    temp_line = strdup(input_line);
+
+    for (int i = 0; temp_line[i] != '\0'; i++) {
+        if (temp_line[i] == ' ') {
+            no_delimiters = false;
+            break;
+        }
+    }
+
+    free(temp_line);
+
+    if (no_delimiters) {
+        struct user_input *input_struct = malloc(sizeof(struct user_input *));
+
+        input_struct->tokens = malloc(2 * sizeof(char *));
+        input_struct->tokens[0] = strdup(input_line);
+        input_struct->tokens[1] = NULL;
+        input_struct->num_tokens = 1;
+        input_struct->original_string = strdup(input_line);
+
+        return input_struct;
+    }
+
+    // TODO: Implement rest.
+
+    // Init variables.
+        // args count
+        // string array 
+        // temp string 
+
+    // Split input line.
+
+    // Free mem.
+
+    // Return.
+
+    return NULL;
+}
 
 /**
  * @brief Splits string by passed delimeter.
@@ -21,11 +88,27 @@
  * @return An array of strings terminated by a null pointer.
  */
 char **split_line(char *line, char *delim, int *num_tokens) {
-    char *line_copy = strdup(line);
+    // Handle no command case.
+    if (strcmp(line, "") == 0) {
+        return NULL;
+    }
+
+    char *line_copy = NULL;
     int count = 0;
-    char *token;
+    char *token = NULL;
+    char **tokens = NULL;
+
+    // Handle case where line is too short to be split.
+    if (strlen(line) < strlen(delim) + 2) {
+        tokens = malloc(2 * sizeof(char *));
+        tokens[0] = strdup(line);
+        tokens[1] = NULL;
+        *num_tokens = 1;
+        return tokens;
+    }
 
     // Count number of tokens.
+    line_copy = strdup(line);
     token = strtok(line_copy, delim);
     while (token != NULL) {
         count++;
@@ -34,7 +117,7 @@ char **split_line(char *line, char *delim, int *num_tokens) {
     free(line_copy);
 
     // Allocate memory for the array of lines.
-    char **tokens = malloc((count + 1) * sizeof(char *));
+    tokens = malloc((count + 1) * sizeof(char *));
     if (tokens == NULL) {
         fprintf(stderr, "Memory allocation failed\n");
         exit(1);
@@ -83,7 +166,13 @@ void free_tokens(char **tokens) {
  */
 char *get_input_line() {
     char *line = malloc(sizeof(char) * MAX_BUFFER);
-    fgets(line, MAX_BUFFER, stdin);               
+
+    if (line == NULL) {
+        printf("ERROR: Memory allocation failed.\n");
+        abort();
+    }
+
+    fgets(line, MAX_BUFFER, stdin);
     line[strcspn(line, "\n")] = '\0';   // Removes added newline from user input.
     return line;
 }
@@ -111,20 +200,19 @@ char *get_input_line() {
  *
  * @see free_tokens() 
  */
-char **prompt(char *prompt_string, int *num_args, char *original_input) {
-    char *delim = malloc(sizeof(char));
+struct user_input *prompt(char *prompt_string) {
+    char *input_line = malloc(sizeof(char *));
+    char *delim = malloc(sizeof(char *));
     *delim = ' ';
-    char *input_line = NULL;
-    char **input_args = NULL;
+    struct user_input *input = NULL;
 
     printf("%s", prompt_string);
 
     input_line = get_input_line();
-    input_args = split_line(input_line, delim, num_args);
-    original_input = strdup(input_line);
+    input = interpret_input(input_line, delim);
 
-    free(delim);
     free(input_line);
+    free(delim);
     
-    return input_args;
+    return input;
 }
