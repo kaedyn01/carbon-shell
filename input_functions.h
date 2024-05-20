@@ -7,6 +7,10 @@ struct user_input {
     char *original_string;
 };
 
+char *trim_whitespace(char *string);
+
+struct user_input *interpret_input(char *input_line);
+
 /**
  * @brief Splits string by passed delimeter.
  *

@@ -2,14 +2,35 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 #include "input_functions.h"
 
 #define MAX_BUFFER 256
 
-struct user_input *interpret_input(char *input_line, char *delim) {
+char *trim_whitespace(char *string) {
+    char *temp_string = strdup(string);
+    char *end = NULL;
+
+    // Trim leading space
+    while(isspace((unsigned char)*temp_string)) temp_string++;
+
+    if(*temp_string == 0)  // All spaces?
+    return temp_string;
+
+    // Trim trailing space
+    end = temp_string + strlen(temp_string) - 1;
+    while(end > temp_string && isspace((unsigned char)*end)) end--;
+
+    // Write new null terminator character
+    end[1] = '\0';
+
+    return temp_string;
+}
+
+struct user_input *interpret_input(char *input_line) {
     // Handle edge cases.
     // Empty string
-    bool empty = strcmp(input_line, " ") == 0;
+    bool empty = strcmp(input_line, "") == 0;
     if (empty) {
         return NULL;
     }
@@ -166,6 +187,7 @@ void free_tokens(char **tokens) {
  */
 char *get_input_line() {
     char *line = malloc(sizeof(char) * MAX_BUFFER);
+    char *trimmed_line = NULL;
 
     if (line == NULL) {
         printf("ERROR: Memory allocation failed.\n");
@@ -174,7 +196,12 @@ char *get_input_line() {
 
     fgets(line, MAX_BUFFER, stdin);
     line[strcspn(line, "\n")] = '\0';   // Removes added newline from user input.
-    return line;
+    
+    trimmed_line = trim_whitespace(line);
+
+    free(line);
+
+    return trimmed_line;
 }
 
 /**
@@ -202,17 +229,12 @@ char *get_input_line() {
  */
 struct user_input *prompt(char *prompt_string) {
     char *input_line = malloc(sizeof(char *));
-    char *delim = malloc(sizeof(char *));
-    *delim = ' ';
     struct user_input *input = NULL;
 
     printf("%s", prompt_string);
 
     input_line = get_input_line();
-    input = interpret_input(input_line, delim);
-
-    free(input_line);
-    free(delim);
+    input = interpret_input(input_line);
     
     return input;
 }

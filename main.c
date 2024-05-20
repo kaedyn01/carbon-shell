@@ -18,9 +18,7 @@ void loop() {
     while (true) {
         struct user_input *input = prompt("> ");
 
-        printf("we made it this far.\n"); // TDWD
-
-        if (input->tokens == NULL) {
+        if (input == NULL) {
             continue;
         } else if (strcmp(input->tokens[0], "ls") == 0) {
             ls();
@@ -34,6 +32,8 @@ void loop() {
             return;
         } else {
             printf("csh: command not found: %s\n", input->tokens[0]);
+            printf("input->num_tokens: %d\n", input->num_tokens);                   // TDWD
+            printf("input->original_string: \"%s\"\n", input->original_string);     // TDWD
         }
     }
 }
