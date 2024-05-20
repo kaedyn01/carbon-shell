@@ -2,37 +2,39 @@
 CC = gcc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra 
+CFLAGS = -Iinclude -Wall -Wextra
 
-# Target executable name
-TARGET = csh
+# Directories
+SRC_DIR = src
+BUILD_DIR = build
+INCLUDE_DIR = include
+TESTS_DIR = tests
 
 # Source files
-SRCS = built_in_commands.c input_functions.c main.c
+SRCS = $(wildcard $(SRC_DIR)/*.c)
 
-# Object files (replace .c with .o in SRCS)
-OBJS = $(SRCS:.c=.o)
+# Object files
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
-# Header files
-HEADERS = built_in_commands.h input_functions.h
+# Executable name
+TARGET = $(BUILD_DIR)/csh
 
-# Default target
+# Rules
 all: $(TARGET)
 
-# Rule to build the target executable
 $(TARGET): $(OBJS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
+	$(CC) -o $@ $^
 
-# Rule to build object files from source files
-%.o: %.c $(HEADERS)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
-# Clean up build artifacts
+$(BUILD_DIR):
+	mkdir -p $(BUILD_DIR)
+
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -rf $(BUILD_DIR)
 
-# Rebuild the project from scratch
-rebuild: clean all
+run: all
+	./$(BUILD_DIR)/csh
 
-# Phony targets (these targets do not correspond to actual files)
-.PHONY: all clean rebuild
+.PHONY: all clean
