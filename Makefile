@@ -37,4 +37,9 @@ clean:
 run: all
 	./$(BUILD_DIR)/csh
 
-.PHONY: all clean
+# Testing
+test: $(TARGET)
+	$(CC) $(CFLAGS) -o $(BUILD_DIR)/input_functions_test $(TESTS_DIR)/input_functions_test.c $(SRC_DIR)/input_functions.c
+	$(BUILD_DIR)/input_functions_test
+
+.PHONY: all clean test
