@@ -8,6 +8,7 @@
 
 bool trim_whitespace_test() {
     // Test normal case.
+    printf("Starting normal case...\n");
     char *untrimmed_string = "     string        ";
     char *trimmed_string = "string";
     char *returned_string = trim_whitespace(untrimmed_string);
@@ -18,6 +19,7 @@ bool trim_whitespace_test() {
     }
 
     // Test case where there's nothing to be trimmed.
+    printf("Starting case where trimming isn't necessary...\n");
     untrimmed_string = "string";
     trimmed_string = "string";
     returned_string = trim_whitespace(untrimmed_string);
@@ -28,6 +30,7 @@ bool trim_whitespace_test() {
     }
 
     // Test case where the input string is all whitespace.
+    printf("Starting case where string is all whitespace...\n");
     untrimmed_string = "                    ";
     trimmed_string = "";
     returned_string = trim_whitespace(untrimmed_string);
@@ -38,6 +41,7 @@ bool trim_whitespace_test() {
     }
 
     // Test case where the input string is empty.
+    printf("Starting case where input string is empty...\n");
     untrimmed_string = "";
     trimmed_string = "";
     returned_string = trim_whitespace(untrimmed_string);
@@ -48,17 +52,19 @@ bool trim_whitespace_test() {
     }
 
 
-    // Test case where the input string has intrimmable whitespace.
+    // Test case where the input string has untrimmable whitespace.
+    printf("Starting case where input string has untrimmable whitespace...\n");
     untrimmed_string = "not     trimmable";
     trimmed_string = "not     trimmable";
     returned_string = trim_whitespace(untrimmed_string);
 
     if (strcmp(trimmed_string, returned_string) != 0) {
-        printf("Error: failed case where string has intrimmable whitespace.\n");
+        printf("Error: failed case where string has untrimmable whitespace.\n");
         return false;
     }
 
     // Test case where the input string only has leading whitespace.
+    printf("Starting case where input string has only has leading whitespace...\n");
     untrimmed_string = "   only leading";
     trimmed_string = "only leading";
     returned_string = trim_whitespace(untrimmed_string);
@@ -69,6 +75,7 @@ bool trim_whitespace_test() {
     }
 
     // Test case where the input string only has trailing whitespace.
+    printf("Starting case where input string has only has trailing whitespace...\n");
     untrimmed_string = "only trailing   ";
     trimmed_string = "only trailing";
     returned_string = trim_whitespace(untrimmed_string);

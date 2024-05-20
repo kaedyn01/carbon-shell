@@ -7,24 +7,66 @@
 
 #define MAX_BUFFER 256
 
+// TODO: Fixe memory leaks caused by this function.
 char *trim_whitespace(char *string) {
-    char *temp_string = strdup(string);
-    char *end = NULL;
+    int len = strlen(string);
+    int start = 0;
+    int end = len - 1;
+    char *substring = NULL;
+    int substring_len = -1;
 
-    // Trim leading space
-    while(isspace((unsigned char)*temp_string)) temp_string++;
+    
+    // Calculate start index of trimmed substring.
+    for (int i = 0; i < len && string[i] == ' '; i++) {
+        printf("i: %d\n", i);
+        printf("i char: \'%c\'\n", string[i]);
+        printf("start: %d\n", start);
+        start++;
+    }
 
-    if(*temp_string == 0)  // All spaces?
-    return temp_string;
+    // All whitespace or empty string case.
+    if (start - 1 == end) {
+        substring = malloc(sizeof(char));
+        substring[0] = '\0';
 
-    // Trim trailing space
-    end = temp_string + strlen(temp_string) - 1;
-    while(end > temp_string && isspace((unsigned char)*end)) end--;
+        // TDWD
+        printf("%d\n", start);
+        printf("\'%c\'\n", string[start]);
+        printf("%d\n", end);
+        printf("\'%c\'\n", string[end]);
+        printf("%d\n", len);
+        printf("%d\n", substring_len);
+        printf("\"%s\"\n", substring);
+        
+        return substring;
+    }
 
-    // Write new null terminator character
-    end[1] = '\0';
+    // Calculate end index of trimmed substring.
+    for (int i = len - 1; i >= 0 && string[i] == ' '; i--) {
+        printf("i: %d\n", i);
+        printf("i char: \'%c\'\n", string[i]);
+        printf("end: %d\n", end);
+        end--;
+    }
 
-    return temp_string;
+    // +1 To account get actual length from indices.
+    substring_len = (end - start) + 1; 
+
+    // Construct and allocate substring.
+    substring = malloc((substring_len + 1) * sizeof(char)); // +1 for null terminating char.
+    strncpy(substring, (string + start), substring_len);
+    substring[substring_len] = '\0';
+
+    // TDWD
+    printf("%d\n", start);
+    printf("\'%c\'\n", string[start]);
+    printf("%d\n", end);
+    printf("\'%c\'\n", string[end]);
+    printf("%d\n", len);
+    printf("%d\n", substring_len);
+    printf("\"%s\"\n", substring);
+
+    return substring;
 }
 
 struct user_input *interpret_input(char *input_line) {
