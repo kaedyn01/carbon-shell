@@ -7,7 +7,7 @@
 
 #define MAX_BUFFER 256
 
-// TODO: Fixe memory leaks caused by this function.
+// TODO: Fix memory leaks caused by this function.
 char *trim_whitespace(char *string) {
     int len = strlen(string);
     int start = 0;

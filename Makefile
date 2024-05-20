@@ -1,45 +1,39 @@
-# Compiler
-CC = gcc
-
-# Compiler flags
-CFLAGS = -Iinclude -Wall -Wextra
+# Compiler 
+CC := gcc 
 
 # Directories
-SRC_DIR = src
-BUILD_DIR = build
-INCLUDE_DIR = include
-TESTS_DIR = tests
+SRC_DIR := src
+BUILD_DIR := build
+INCLUDE_DIR := include
+TEST_DIR := tests
 
-# Source files
-SRCS = $(wildcard $(SRC_DIR)/*.c)
+# Compiler Flags
+CFLAGS := -I$(INCLUDE_DIR) -Wall -Wextra
 
-# Object files
-OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
+# Source Files
+SRCS := $(wildcard $(SRC_DIR)/*.c)
 
-# Executable name
-TARGET = $(BUILD_DIR)/csh
+# Object Files
+OBJS := $(patsubt %.c, %.o, $(SRCS))
+
+# Test Files
+TESTS := $(wildcard $(TEST_DIR)/*.c)
+
+# Executable name and location
+TARGET := $(BUILD_DIR)/csh
+
+# Test executable
+TEST := $(BUILD_DIR)/test
 
 # Rules
-all: $(TARGET)
-
 $(TARGET): $(OBJS)
-	$(CC) -o $@ $^
+	$(CC) -o $(TARGET) $(OBJS)
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c | $(BUILD_DIR)
-	$(CC) $(CFLAGS) -c -o $@ $<
+$(OBJS): $(SRCS) $(BUILD_DIR)
+	$(CC) $(CFLAGS) -c $(SRCS)
 
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 clean:
-	rm -rf $(BUILD_DIR)
-
-run: all
-	./$(BUILD_DIR)/csh
-
-# Testing
-test: $(TARGET)
-	$(CC) $(CFLAGS) -o $(BUILD_DIR)/input_functions_test $(TESTS_DIR)/input_functions_test.c $(SRC_DIR)/input_functions.c
-	$(BUILD_DIR)/input_functions_test
-
-.PHONY: all clean test
+	rm -rf build
