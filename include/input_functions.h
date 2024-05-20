@@ -12,24 +12,7 @@ char *trim_whitespace(char *string);
 struct user_input *interpret_input(char *input_line);
 
 /**
- * @brief Splits string by passed delimeter.
- *
- * This function takes a string and delimeter as input, and
- * splits the string into an array of substrings terminated
- * by a null pointer. This function also stores the length
- * of the array in the integer pointer num_tokens.
- *
- * @param[in] line The line that the user wants to split.
- *
- * @param[in] delim The delimiter that the string will by split\
- *      by.
- *
- * @return An array of strings terminated by a null pointer.
- */
-char **split_line(char *string, char *delim, int *num_tokens);
-
-/**
- * @brief Frees all the memory allocated by prompt().
+ * @brief Frees all the memory allocated by interpret_input().
  *
  * This function takes an array of strings terminated by a null
  * pointer and frees all of its memory.
@@ -37,7 +20,7 @@ char **split_line(char *string, char *delim, int *num_tokens);
  * @param[in] tokens The array of strings, terminated by a null\ 
  *      pointer, that the user wants to free from memory.
  *
- * @see prompt()
+ * @see interpret_input()
  */
 void free_tokens(char **tokens);
 
