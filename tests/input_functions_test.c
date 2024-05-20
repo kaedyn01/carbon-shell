@@ -51,7 +51,6 @@ bool trim_whitespace_test() {
         return false;
     }
 
-
     // Test case where the input string has untrimmable whitespace.
     printf("Starting case where input string has untrimmable whitespace...\n");
     untrimmed_string = "not     trimmable";
