@@ -136,6 +136,25 @@ static bool is_user_input_struct_correct(
     return true;
 }
 
+static bool single_interpret_input_test(
+    char **correct_tokens, 
+    int correct_num_tokens, 
+    char *correct_original_string
+    ) {
+    struct user_input *input_struct = interpret_input(correct_original_string);
+
+    bool test_result = is_user_input_struct_correct(
+        correct_tokens, 
+        correct_num_tokens, 
+        correct_original_string, 
+        input_struct
+    );
+
+    free_test_vars(correct_tokens, input_struct);
+
+    return test_result;
+}
+
 bool interpret_input_test() {
     printf(">>> Starting test for interpret_input_test() <<<\n");
 
@@ -143,8 +162,6 @@ bool interpret_input_test() {
     char **correct_tokens = NULL;
     int correct_num_tokens = -1;
     char *correct_original_string = NULL;
-    struct user_input *input_struct = NULL;
-    bool test_result = false;
 
     // Test normal case.
     printf("Starting normal case...\n");
@@ -156,18 +173,11 @@ bool interpret_input_test() {
     correct_num_tokens = 2;
     correct_original_string = "echo command";
     
-    input_struct = interpret_input(correct_original_string);
-
-    test_result = is_user_input_struct_correct(
-        correct_tokens, 
-        correct_num_tokens, 
-        correct_original_string, 
-        input_struct
-    );
-
-    free_test_vars(correct_tokens, input_struct);
-
-    if (test_result == false) {
+    if (single_interpret_input_test(
+        correct_tokens,
+        correct_num_tokens,
+        correct_original_string
+    ) == false) {
         return false;
     }
 
@@ -180,18 +190,11 @@ bool interpret_input_test() {
     correct_num_tokens = 1;
     correct_original_string = "ls";
 
-    input_struct = interpret_input(correct_original_string);
-
-    test_result = is_user_input_struct_correct(
-        correct_tokens, 
-        correct_num_tokens, 
-        correct_original_string, 
-        input_struct
-    );
-
-    free_test_vars(correct_tokens, input_struct);
-
-    if (test_result == false) {
+    if (single_interpret_input_test(
+        correct_tokens,
+        correct_num_tokens,
+        correct_original_string
+    ) == false) {
         return false;
     }
 
@@ -202,18 +205,11 @@ bool interpret_input_test() {
     correct_num_tokens = 0;
     correct_original_string = "";
 
-    input_struct = interpret_input(correct_original_string);
-
-    test_result = is_user_input_struct_correct(
-        correct_tokens, 
-        correct_num_tokens, 
-        correct_original_string, 
-        input_struct
-    );
-
-    free_test_vars(correct_tokens, input_struct);
-
-    if (test_result == false) {
+    if (single_interpret_input_test(
+        correct_tokens,
+        correct_num_tokens,
+        correct_original_string
+    ) == false) {
         return false;
     }
 
@@ -224,18 +220,11 @@ bool interpret_input_test() {
     correct_num_tokens = 0;
     correct_original_string = "           ";
 
-    input_struct = interpret_input(correct_original_string);
-
-    test_result = is_user_input_struct_correct(
-        correct_tokens, 
-        correct_num_tokens, 
-        correct_original_string, 
-        input_struct
-    );
-
-    free_test_vars(correct_tokens, input_struct);
-
-    if (test_result == false) {
+    if (single_interpret_input_test(
+        correct_tokens,
+        correct_num_tokens,
+        correct_original_string
+    ) == false) {
         return false;
     }
 
@@ -248,18 +237,11 @@ bool interpret_input_test() {
     correct_num_tokens = 1;
     correct_original_string = "random-file-name";
 
-    input_struct = interpret_input(correct_original_string);
-
-    test_result = is_user_input_struct_correct(
-        correct_tokens, 
-        correct_num_tokens, 
-        correct_original_string, 
-        input_struct
-    );
-
-    free_test_vars(correct_tokens, input_struct);
-
-    if (test_result == false) {
+    if (single_interpret_input_test(
+        correct_tokens,
+        correct_num_tokens,
+        correct_original_string
+    ) == false) {
         return false;
     }
 
