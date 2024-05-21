@@ -250,8 +250,57 @@ bool interpret_input_test() {
     return true;
 }
 
+// TODO: Make sure test looks correct.
+static bool single_free_tokens_test(char **input_tokens) {
+    // Count number of tokens.
+    int num_tokens = 0;
+    for (int i = 0; input_tokens[i] != NULL; i++) {
+        num_tokens++;
+    }
+
+    // Create array of pointers to elements in input_tokens.
+    char **copy_input_tokens = malloc((num_tokens + 1) * sizeof(char *)); 
+    for (int i = 0; i < num_tokens; i++) {
+        copy_input_tokens[i] = input_tokens[i];
+    }
+    copy_input_tokens[num_tokens] = NULL;
+
+    free_tokens(input_tokens);
+
+    // Check if all elements were freed.
+    for (int i = 0; i < num_tokens; i++) {
+        if (input_tokens[i] != NULL) {
+            free(copy_input_tokens);
+            return false;
+        }
+    }
+    if (input_tokens != NULL) {
+        free(copy_input_tokens);
+        return false;
+    }
+
+    return true;
+}
+
 bool free_tokens_test() {
     printf(">>> Starting test for free_tokens_test() <<<\n");
+
+    // Init test vars.
+    int num_input_tokens = 0;
+    char **input_tokens = NULL;
+
+    // Testing normal case.
+    printf("Starting normal case...\n");
+
+    num_input_tokens = 2;
+    input_tokens = malloc((num_input_tokens + 2) * sizeof(char *));
+    input_tokens[0] = strdup("echo");
+    input_tokens[1] = strdup("this");
+    input_tokens[2] = NULL;
+
+    if (single_free_tokens_test(input_tokens) == false) {
+        return false;
+    }
 
     return true;
 }

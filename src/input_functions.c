@@ -129,7 +129,7 @@ struct user_input *interpret_input(char *input_line) {
  * This function takes an array of strings terminated by a null
  * pointer and frees all of its memory.
  *
- * @param[in] tokens The array of strings, terminated by a null\ 
+ * @param[in] tokens The array of strings, terminated by a null\
  *      pointer, that the user wants to free from memory.
  *
  * @see interpret_input()
