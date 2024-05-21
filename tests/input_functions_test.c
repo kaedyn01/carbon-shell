@@ -5,6 +5,8 @@
 #include "input_functions.h"
 
 bool trim_whitespace_test() {
+    printf(">>> Starting test for trim_whitespace_test() <<<\n");
+
     // Test normal case.
     printf("Starting normal case...\n");
     char *untrimmed_string = "     string        ";
@@ -92,59 +94,74 @@ bool trim_whitespace_test() {
     return true;
 }
 
+static void free_test_vars(char **array, struct user_input *input_struct) {
+    for (int i = 0; array[i] != NULL; i++) {
+        free(array[i]);
+    }
+    free(array);
+    free(input_struct);
+}
+
 bool interpret_input_test() {
+    printf(">>> Starting test for interpret_input_test() <<<\n");
+
     // Test normal case.
     printf("Starting normal case...\n");
 
-    char **correct_tokens = {"echo", "command"};
+    char **correct_tokens = malloc(3 * sizeof(char *));
+    correct_tokens[0] = strdup("echo");
+    correct_tokens[1] = strdup("command");
+    correct_tokens[2] = NULL;
     int correct_num_tokens = 2;
     char *correct_original_string = "echo command";
     
     struct user_input *input_struct = interpret_input(correct_original_string);
 
-    if (user_input == NULL) {
+    if (input_struct == NULL) {
         return false;
     }
     for (int i = 0; i < correct_num_tokens; i++) {
         if (strcmp(correct_tokens[i], input_struct->tokens[i]) != 0) {
-            free(input_struct); // TODO: Check to see if this free is enough.
+            free_test_vars(correct_tokens, input_struct);
             return false;
         }
     }
     if (correct_num_tokens != input_struct->num_tokens) {
-        free(input_struct);
+        free_test_vars(correct_tokens, input_struct);
         return false;
     } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
-        free(input_struct);
+        free_test_vars(correct_tokens, input_struct);
         return false;
     }
 
-    free(input_struct);
+    free_test_vars(correct_tokens, input_struct);
 
     // Test case where there's only one token.
     printf("Starting case where there's only one token...\n");
 
-    correct_tokens = {"ls"};
+    correct_tokens = malloc(2 * sizeof(char *));
+    correct_tokens[0] = strdup("ls");
+    correct_tokens[1] = NULL;
     correct_num_tokens = 1;
     correct_original_string = "ls";
 
     input_struct = interpret_input(correct_original_string);
 
-    if (user_input == NULL) {
+    if (input_struct == NULL) {
         return false;
     }
     if (strcmp(correct_tokens[0], input_struct->tokens[0]) != 0) {
-        free(input_struct);
+        free_test_vars(correct_tokens, input_struct);
         return false;
     } else if (correct_num_tokens != input_struct->num_tokens) {
-        free(input_struct);
+        free_test_vars(correct_tokens, input_struct);
         return false;
     } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
-        free(input_struct);
+        free_test_vars(correct_tokens, input_struct);
         return false;
     }
 
-    free(input_struct);
+    free_test_vars(correct_tokens, input_struct);
 
     // Test case where input is empty string.
     printf("Starting case where input is empty string...\n");
@@ -155,10 +172,10 @@ bool interpret_input_test() {
 
     input_struct = interpret_input(correct_original_string);
 
-    if (user_input == NULL) {
+    if (input_struct == NULL) {
         return false;
     }
-    if (correct_tokens != tokens) {
+    if (correct_tokens != input_struct->tokens) {
         free(input_struct);
         return false;
     } else if (correct_num_tokens != input_struct->num_tokens) {
@@ -180,10 +197,10 @@ bool interpret_input_test() {
 
     input_struct = interpret_input(correct_original_string);
 
-    if (user_input == NULL) {
+    if (input_struct == NULL) {
         return false;
     }
-    if (correct_tokens != tokens) {
+    if (correct_tokens != input_struct->tokens) {
         free(input_struct);
         return false;
     } else if (correct_num_tokens != input_struct->num_tokens) {
@@ -199,40 +216,48 @@ bool interpret_input_test() {
     // Test case where input has no delimeters.
     printf("Starting case where input has no delimeters...\n");
 
-    correct_tokens = {"random-file-name"};
+    correct_tokens = malloc(2 * sizeof(char *));
+    correct_tokens[0] = strdup("random-file-name");
+    correct_tokens[1] = NULL;
     correct_num_tokens = 1;
     correct_original_string = "random-file-name";
 
     input_struct = interpret_input(correct_original_string);
 
-    if (user_input == NULL) {
+    if (input_struct == NULL) {
         return false;
     }
     if (strcmp(correct_tokens[0], input_struct->tokens[0]) != 0) {
-        free(input_struct);
+        free_test_vars(correct_tokens, input_struct);
         return false;
     } else if (correct_num_tokens != input_struct->num_tokens) {
-        free(input_struct);
+        free_test_vars(correct_tokens, input_struct);
         return false;
     } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
-        free(input_struct);
+        free_test_vars(correct_tokens, input_struct);
         return false;
     }
 
-    free(input_struct);
+    free_test_vars(correct_tokens, input_struct);
 
     return true;
 }
 
 bool free_tokens_test() {
+    printf(">>> Starting test for free_tokens_test() <<<\n");
+
     return true;
 }
 
 bool get_input_line_test() {
+    printf(">>> Starting test for get_input_line_test() <<<\n");
+
     return true;
 }
 
 bool prompt_test() {
+    printf(">>> Starting test for prompt_test() <<<\n");
+
     return true;
 }
 
