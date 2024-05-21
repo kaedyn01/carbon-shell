@@ -7,6 +7,21 @@ struct user_input {
     char *original_string;
 };
 
+/**
+ * @brief Returns a pointer to a substring of string without leading\
+ *      and trailing whitespace. 
+ *
+ * This function takes a string as input, and returns a substring of 
+ * the input string without any leading or trailing whitespace. This
+ * function does not modify the original string. Instead, it allocates
+ * memory, using malloc(), for the trimmed substring and returns a 
+ * pointer to the start of the substring.
+ *
+ * @param[in] string String the user wishes to have trimmed down.
+ *
+ * @return Pointer to a substring of string without any leading or\
+ *      trailing whitespace.
+ */
 char *trim_whitespace(char *string);
 
 struct user_input *interpret_input(char *input_line);
