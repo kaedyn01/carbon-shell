@@ -141,6 +141,7 @@ static bool single_interpret_input_test(
     int correct_num_tokens, 
     char *correct_original_string
     ) {
+    // Construct user input struct to test.
     struct user_input *input_struct = interpret_input(correct_original_string);
 
     bool test_result = is_user_input_struct_correct(
@@ -150,6 +151,7 @@ static bool single_interpret_input_test(
         input_struct
     );
 
+    // Free memory of test inputs that requested it in interpret_input_test().
     free_test_vars(correct_tokens, input_struct);
 
     return test_result;
