@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include "input_functions.h"
 
-// TODO: Test memory leaks from trim_whitespace().
-
 bool trim_whitespace_test() {
     // Test normal case.
     printf("Starting normal case...\n");
@@ -17,6 +15,7 @@ bool trim_whitespace_test() {
         printf("Error: failed normal case.\n");
         return false;
     }
+    free(returned_string);
 
     // Test case where there's nothing to be trimmed.
     printf("Starting case where trimming isn't necessary...\n");
@@ -28,6 +27,7 @@ bool trim_whitespace_test() {
         printf("Error: failed case where trimming wasn't necessary.\n");
         return false;
     }
+    free(returned_string);
 
     // Test case where the input string is all whitespace.
     printf("Starting case where string is all whitespace...\n");
@@ -39,6 +39,7 @@ bool trim_whitespace_test() {
         printf("Error: failed case where string was all whitespace.\n");
         return false;
     }
+    free(returned_string);
 
     // Test case where the input string is empty.
     printf("Starting case where input string is empty...\n");
@@ -50,6 +51,7 @@ bool trim_whitespace_test() {
         printf("Error: failed case where string was empty.\n");
         return false;
     }
+    free(returned_string);
 
     // Test case where the input string has untrimmable whitespace.
     printf("Starting case where input string has untrimmable whitespace...\n");
@@ -61,6 +63,7 @@ bool trim_whitespace_test() {
         printf("Error: failed case where string has untrimmable whitespace.\n");
         return false;
     }
+    free(returned_string);
 
     // Test case where the input string only has leading whitespace.
     printf("Starting case where input string has only has leading whitespace...\n");
@@ -72,6 +75,7 @@ bool trim_whitespace_test() {
         printf("Error: failed case where string has only has leading whitespace.\n");
         return false;
     }
+    free(returned_string);
 
     // Test case where the input string only has trailing whitespace.
     printf("Starting case where input string has only has trailing whitespace...\n");
@@ -83,6 +87,7 @@ bool trim_whitespace_test() {
         printf("Error: failed case where string has only has trailing whitespace.\n");
         return false;
     }
+    free(returned_string);
 
     return true;
 }
