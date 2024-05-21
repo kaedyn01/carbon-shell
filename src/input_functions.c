@@ -185,7 +185,7 @@ char *get_input_line() {
  * @param[out] original_input The variable used to save the original string\
  *      input.
  *
- * @return An array of strings, terminated by a NULL pointer, where each\ 
+ * @return An array of strings, terminated by a NULL pointer, where each\
  *      string is word in the command that the user typed.
  *
  * @see free_tokens() 

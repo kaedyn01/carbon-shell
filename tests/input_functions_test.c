@@ -93,6 +93,119 @@ bool trim_whitespace_test() {
 }
 
 bool interpret_input_test() {
+    // Test normal case.
+    printf("Starting normal case...\n");
+
+    char **correct_tokens = {"echo", "command"};
+    int correct_num_tokens = 2;
+    char *correct_original_string = "echo command";
+    
+    struct user_input *input_struct = interpret_input(correct_original_string);
+
+    for (int i = 0; i < correct_num_tokens; i++) {
+        if (strcmp(correct_tokens[i], input_struct->tokens[i]) != 0) {
+            free(input_struct); // TODO: Check to see if this free is enough.
+            return false;
+        }
+    }
+    if (correct_num_tokens != input_struct->num_tokens) {
+        free(input_struct);
+        return false;
+    } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
+        free(input_struct);
+        return false;
+    }
+
+    free(input_struct);
+
+    // Test case where there's only one token.
+    printf("Starting case where there's only one token...\n");
+
+    correct_tokens = {"ls"};
+    correct_num_tokens = 1;
+    correct_original_string = "ls";
+
+    input_struct = interpret_input(correct_original_string);
+
+    if (strcmp(correct_tokens[0], input_struct->tokens[0]) != 0) {
+        free(input_struct);
+        return false;
+    } else if (correct_num_tokens != input_struct->num_tokens) {
+        free(input_struct);
+        return false;
+    } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
+        free(input_struct);
+        return false;
+    }
+
+    free(input_struct);
+
+    // Test case where input is empty string.
+    printf("Starting case where input is empty string...\n");
+
+    correct_tokens = NULL;
+    correct_num_tokens = 0;
+    correct_original_string = "";
+
+    input_struct = interpret_input(correct_original_string);
+
+    if (correct_tokens != tokens) {
+        free(input_struct);
+        return false;
+    } else if (correct_num_tokens != input_struct->num_tokens) {
+        free(input_struct);
+        return false;
+    } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
+        free(input_struct);
+        return false;
+    }
+
+    free(input_struct);
+
+    // Test case where input is all whitespace.
+    printf("Starting case where input is all whitespace...\n");
+
+    correct_tokens = NULL;
+    correct_num_tokens = 0;
+    correct_original_string = "           ";
+
+    input_struct = interpret_input(correct_original_string);
+
+    if (correct_tokens != tokens) {
+        free(input_struct);
+        return false;
+    } else if (correct_num_tokens != input_struct->num_tokens) {
+        free(input_struct);
+        return false;
+    } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
+        free(input_struct);
+        return false;
+    }
+
+    free(input_struct);
+
+    // Test case where input has no delimeters.
+    printf("Starting case where input has no delimeters...\n");
+
+    correct_tokens = {"random-file-name"};
+    correct_num_tokens = 1;
+    correct_original_string = "random-file-name";
+
+    input_struct = interpret_input(correct_original_string);
+
+    if (strcmp(correct_tokens[0], input_struct->tokens[0]) != 0) {
+        free(input_struct);
+        return false;
+    } else if (correct_num_tokens != input_struct->num_tokens) {
+        free(input_struct);
+        return false;
+    } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
+        free(input_struct);
+        return false;
+    }
+
+    free(input_struct);
+
     return true;
 }
 
