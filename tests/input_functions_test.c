@@ -258,6 +258,8 @@ static bool single_free_tokens_test(char **input_tokens) {
         num_tokens++;
     }
 
+    printf("%d\n", num_tokens); // TDWD
+
     // Create array of pointers to elements in input_tokens.
     char **copy_input_tokens = malloc((num_tokens + 1) * sizeof(char *)); 
     for (int i = 0; i < num_tokens; i++) {
