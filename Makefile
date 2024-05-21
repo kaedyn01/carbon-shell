@@ -40,7 +40,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Run tests
-run_test: build
+run_test: build_test
 	$(TEST_TARGET)
 
 # Build tests
