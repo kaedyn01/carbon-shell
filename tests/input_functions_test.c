@@ -102,6 +102,9 @@ bool interpret_input_test() {
     
     struct user_input *input_struct = interpret_input(correct_original_string);
 
+    if (user_input == NULL) {
+        return false;
+    }
     for (int i = 0; i < correct_num_tokens; i++) {
         if (strcmp(correct_tokens[i], input_struct->tokens[i]) != 0) {
             free(input_struct); // TODO: Check to see if this free is enough.
@@ -127,6 +130,9 @@ bool interpret_input_test() {
 
     input_struct = interpret_input(correct_original_string);
 
+    if (user_input == NULL) {
+        return false;
+    }
     if (strcmp(correct_tokens[0], input_struct->tokens[0]) != 0) {
         free(input_struct);
         return false;
@@ -149,6 +155,9 @@ bool interpret_input_test() {
 
     input_struct = interpret_input(correct_original_string);
 
+    if (user_input == NULL) {
+        return false;
+    }
     if (correct_tokens != tokens) {
         free(input_struct);
         return false;
@@ -171,6 +180,9 @@ bool interpret_input_test() {
 
     input_struct = interpret_input(correct_original_string);
 
+    if (user_input == NULL) {
+        return false;
+    }
     if (correct_tokens != tokens) {
         free(input_struct);
         return false;
@@ -193,6 +205,9 @@ bool interpret_input_test() {
 
     input_struct = interpret_input(correct_original_string);
 
+    if (user_input == NULL) {
+        return false;
+    }
     if (strcmp(correct_tokens[0], input_struct->tokens[0]) != 0) {
         free(input_struct);
         return false;
