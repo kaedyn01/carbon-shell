@@ -102,39 +102,74 @@ static void free_test_vars(char **array, struct user_input *input_struct) {
     free(input_struct);
 }
 
+static bool is_user_input_struct_correct(
+    char **correct_tokens, 
+    int correct_num_tokens, 
+    char *correct_original_string,
+    struct user_input *input_struct
+    ) {
+    // Struct should never be null.
+    if (input_struct == NULL) {
+        return false;
+    } 
+
+    // Tokens should match up.
+    if (correct_tokens == NULL) {
+        if (correct_tokens != input_struct->tokens) {
+            return false;
+        }
+    } else {
+        for (int i = 0; correct_tokens[i] != NULL; i++) {
+            if (strcmp(correct_tokens[i], input_struct->tokens[i]) != 0) {
+                return false;
+            }
+        }
+    }
+
+    // Number of tokens and original input string should also match up.
+    if (correct_num_tokens != input_struct->num_tokens) {
+        return false;
+    } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
+        return false;
+    }
+
+    return true;
+}
+
 bool interpret_input_test() {
     printf(">>> Starting test for interpret_input_test() <<<\n");
+
+    // Init variables needed for each test.
+    char **correct_tokens = NULL;
+    int correct_num_tokens = -1;
+    char *correct_original_string = NULL;
+    struct user_input *input_struct = NULL;
+    bool test_result = false;
 
     // Test normal case.
     printf("Starting normal case...\n");
 
-    char **correct_tokens = malloc(3 * sizeof(char *));
+    correct_tokens = malloc(3 * sizeof(char *));
     correct_tokens[0] = strdup("echo");
     correct_tokens[1] = strdup("command");
     correct_tokens[2] = NULL;
-    int correct_num_tokens = 2;
-    char *correct_original_string = "echo command";
+    correct_num_tokens = 2;
+    correct_original_string = "echo command";
     
-    struct user_input *input_struct = interpret_input(correct_original_string);
+    input_struct = interpret_input(correct_original_string);
 
-    if (input_struct == NULL) {
-        return false;
-    }
-    for (int i = 0; i < correct_num_tokens; i++) {
-        if (strcmp(correct_tokens[i], input_struct->tokens[i]) != 0) {
-            free_test_vars(correct_tokens, input_struct);
-            return false;
-        }
-    }
-    if (correct_num_tokens != input_struct->num_tokens) {
-        free_test_vars(correct_tokens, input_struct);
-        return false;
-    } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
-        free_test_vars(correct_tokens, input_struct);
-        return false;
-    }
+    test_result = is_user_input_struct_correct(
+        correct_tokens, 
+        correct_num_tokens, 
+        correct_original_string, 
+        input_struct
+    );
 
     free_test_vars(correct_tokens, input_struct);
+
+    if (test_result == false) {
+        return false;
+    }
 
     // Test case where there's only one token.
     printf("Starting case where there's only one token...\n");
@@ -147,21 +182,18 @@ bool interpret_input_test() {
 
     input_struct = interpret_input(correct_original_string);
 
-    if (input_struct == NULL) {
-        return false;
-    }
-    if (strcmp(correct_tokens[0], input_struct->tokens[0]) != 0) {
-        free_test_vars(correct_tokens, input_struct);
-        return false;
-    } else if (correct_num_tokens != input_struct->num_tokens) {
-        free_test_vars(correct_tokens, input_struct);
-        return false;
-    } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
-        free_test_vars(correct_tokens, input_struct);
-        return false;
-    }
+    test_result = is_user_input_struct_correct(
+        correct_tokens, 
+        correct_num_tokens, 
+        correct_original_string, 
+        input_struct
+    );
 
     free_test_vars(correct_tokens, input_struct);
+
+    if (test_result == false) {
+        return false;
+    }
 
     // Test case where input is empty string.
     printf("Starting case where input is empty string...\n");
@@ -172,21 +204,18 @@ bool interpret_input_test() {
 
     input_struct = interpret_input(correct_original_string);
 
-    if (input_struct == NULL) {
-        return false;
-    }
-    if (correct_tokens != input_struct->tokens) {
-        free(input_struct);
-        return false;
-    } else if (correct_num_tokens != input_struct->num_tokens) {
-        free(input_struct);
-        return false;
-    } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
-        free(input_struct);
-        return false;
-    }
+    test_result = is_user_input_struct_correct(
+        correct_tokens, 
+        correct_num_tokens, 
+        correct_original_string, 
+        input_struct
+    );
 
-    free(input_struct);
+    free_test_vars(correct_tokens, input_struct);
+
+    if (test_result == false) {
+        return false;
+    }
 
     // Test case where input is all whitespace.
     printf("Starting case where input is all whitespace...\n");
@@ -197,21 +226,18 @@ bool interpret_input_test() {
 
     input_struct = interpret_input(correct_original_string);
 
-    if (input_struct == NULL) {
-        return false;
-    }
-    if (correct_tokens != input_struct->tokens) {
-        free(input_struct);
-        return false;
-    } else if (correct_num_tokens != input_struct->num_tokens) {
-        free(input_struct);
-        return false;
-    } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
-        free(input_struct);
-        return false;
-    }
+    test_result = is_user_input_struct_correct(
+        correct_tokens, 
+        correct_num_tokens, 
+        correct_original_string, 
+        input_struct
+    );
 
-    free(input_struct);
+    free_test_vars(correct_tokens, input_struct);
+
+    if (test_result == false) {
+        return false;
+    }
 
     // Test case where input has no delimeters.
     printf("Starting case where input has no delimeters...\n");
@@ -224,21 +250,18 @@ bool interpret_input_test() {
 
     input_struct = interpret_input(correct_original_string);
 
-    if (input_struct == NULL) {
-        return false;
-    }
-    if (strcmp(correct_tokens[0], input_struct->tokens[0]) != 0) {
-        free_test_vars(correct_tokens, input_struct);
-        return false;
-    } else if (correct_num_tokens != input_struct->num_tokens) {
-        free_test_vars(correct_tokens, input_struct);
-        return false;
-    } else if (strcmp(correct_original_string, input_struct->original_string) != 0) {
-        free_test_vars(correct_tokens, input_struct);
-        return false;
-    }
+    test_result = is_user_input_struct_correct(
+        correct_tokens, 
+        correct_num_tokens, 
+        correct_original_string, 
+        input_struct
+    );
 
     free_test_vars(correct_tokens, input_struct);
+
+    if (test_result == false) {
+        return false;
+    }
 
     return true;
 }
