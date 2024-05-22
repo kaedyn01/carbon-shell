@@ -4,6 +4,9 @@
 #include <stdlib.h>
 #include "input_functions.h"
 
+/**
+ * @brief Tests the functionality of trim_whitespace().
+ */
 bool trim_whitespace_test() {
     printf(">>> Starting test for trim_whitespace_test() <<<\n");
 
