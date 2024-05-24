@@ -137,8 +137,10 @@ struct user_input *interpret_input(char *input_line) {
 void free_tokens(char **tokens) {
     for(int i = 0; tokens[i] != NULL; i++) {
         free(tokens[i]);
+		tokens[i] = NULL;	// Marks that input[i] is free.
     }
     free(tokens);
+	tokens = NULL;	// Marks that input is free. 
 }
 
 /**

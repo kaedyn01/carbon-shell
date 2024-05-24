@@ -41,7 +41,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 
 # Run tests
 run_test: build_test
-	$(TEST_TARGET)
+	valgrind $(TEST_TARGET)
 
 # Build tests
 build_test: $(TEST_TARGET)
