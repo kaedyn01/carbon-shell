@@ -57,6 +57,7 @@ char *trim_whitespace(char *string) {
     return substring;
 }
 
+// TODO: Finish implementing.
 struct user_input *interpret_input(char *input_line) {
     // Handle edge cases.
     // Empty string
