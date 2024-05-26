@@ -267,6 +267,7 @@ static bool single_free_tokens_test(char **input_tokens) {
 	return true; // Placeholder, implement function later. 
 }
 
+// Remove in favor of using Valgrind.
 bool free_tokens_test() {
     printf(">>> Starting test for free_tokens_test() <<<\n");
 
