@@ -257,46 +257,64 @@ bool interpret_input_test() {
     return true;
 }
 
-static bool single_free_tokens_test(char **input_tokens) {
-	/*
-	 * Change to not check for any errors but simply run
-	 * as normal and let valgrind do the work to check if
-	 * memory was cleared.
-	 */
+bool single_get_input_line_test(char *correct_string) {
+	char *received_string = get_input_line();
 
-	return true; // Placeholder, implement function later. 
-}
-
-// Remove in favor of using Valgrind.
-bool free_tokens_test() {
-    printf(">>> Starting test for free_tokens_test() <<<\n");
-
-    // Init test vars.
-    int num_input_tokens = 0;
-    char **input_tokens = NULL;
-
-    // Testing normal case.
-    printf("Starting normal case...\n");
-
-    num_input_tokens = 2;
-    input_tokens = malloc((num_input_tokens + 2) * sizeof(char *));
-    input_tokens[0] = strdup("echo");
-    input_tokens[1] = strdup("this");
-    input_tokens[2] = NULL;
-
-    if (single_free_tokens_test(input_tokens) == false) {
-        return false;
-    }
-
-	printf("Check valgrind for more info...\n");
-
-    return true;
+	bool result = strcmp(received_string, correct_string) == 0;
+	free(received_string);
+	
+	return result;
 }
 
 bool get_input_line_test() {
     printf(">>> Starting test for get_input_line_test() <<<\n");
+	
+	char *correct_string = NULL;
+	
+	printf("Starting case where user input is normal...\n");
 
-	printf("Pass!\n");
+	correct_string = malloc(3 * sizeof(char));
+	if (correct_string == NULL) {
+		printf("Failed to allocate memory in get_input_line_test().\n");
+		return false;
+	}
+	correct_string = strdup("ls");
+
+	if (single_get_input_line_test(correct_string) == false) {
+		free(correct_string);
+		return false;
+	}
+	free(correct_string);
+
+	printf("Starting case where user input is multiple tokens...\n");
+
+	correct_string = malloc(7 * sizeof(char));
+	if (correct_string == NULL) {
+		printf("Failed to allocate memory in get_input_line_test().\n");
+		return false;
+	}
+	correct_string = strdup("cd dir");
+
+	if (single_get_input_line_test(correct_string) == false) {
+		free(correct_string);
+		return false;
+	}
+	free(correct_string);
+
+	printf("Starting case where user input is empty... \n");
+
+	correct_string = malloc(1 * sizeof(char));
+	if (correct_string == NULL) {
+		printf("Failed to allocate memory in get_input_line_test().\n");
+		return false;
+	}
+	correct_string = strdup("");
+
+	if (single_get_input_line_test(correct_string) == false) {
+		free(correct_string);
+		return false;
+	}
+	free(correct_string);
 
     return true;
 }
@@ -310,24 +328,21 @@ bool prompt_test() {
 }
 
 int main(void) {
-    bool trim_whitespace_result = trim_whitespace_test();
+	bool trim_whitespace_result = trim_whitespace_test();
     bool interpret_input_result = interpret_input_test();
-    bool free_tokens_result = free_tokens_test();
     bool get_input_line_result = get_input_line_test();
     bool prompt_result = prompt_test();
     bool all_tests_result = trim_whitespace_result &&
                             interpret_input_result &&
-                            free_tokens_result &&
                             get_input_line_result && 
                             prompt_result;
 
     printf("********INPUT FUNCTIONS TEST********\n");
     printf("trim_whitespace test result:    %s\n\n", trim_whitespace_result ? "pass" : "fail");
     printf("interpret_input test result:    %s\n\n", interpret_input_result ? "pass" : "fail");
-    printf("free_tokens test result:        %s\n\n", free_tokens_result ? "pass" : "fail");
     printf("get_input_line test result:     %s\n\n", get_input_line_result ? "pass" : "fail");
     printf("prompt test result:             %s\n\n", prompt_result ? "pass" : "fail");
     printf("ALL TESTS result:               %s\n", all_tests_result ? "pass" : "fail");
 
-    return 0;
+    return 0;	
 }
