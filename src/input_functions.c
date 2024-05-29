@@ -107,7 +107,8 @@ struct user_input *interpret_input(char *input_line) {
 
         return input_struct;
     }
-
+	
+	// Handle Normal Cases.
     // TODO: Implement rest.
 
     // Init variables.
