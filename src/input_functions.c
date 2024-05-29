@@ -124,7 +124,20 @@ char **split_line(char *line, char *delim, int *num_tokens) {
     return tokens;
 }
 
-// TODO: Finish implementing.
+/**
+ * @brief Takes a formatted input line and turns it into a user_input
+ *      struct. 
+ * 
+ * This function handles taking a user input string and breaking it up into 
+ * the components that go into a user_input struct. This allows parsing of input
+ * for arguments to be a lot easier.
+ * 
+ * @param[in] input_line A string without any leading or trailing whitespace, or 
+ *      without any newline characters. 
+ * 
+ * @return A user_input struct. See input_functions.h for more information on 
+ *      how a user_input struct is formatted. 
+*/
 struct user_input *interpret_input(char *input_line) {
     // Handle edge cases.
     // Empty string
@@ -234,6 +247,8 @@ void free_tokens(char **tokens) {
  * @brief Gets and returns input from the user.
  *
  * This function gets input from user and uses malloc() to store
+ * the string in memory. User of this function must use free()
+ * to free the returned value. 
  *
  * @return A string holding user input.
  */

@@ -1,11 +1,19 @@
 #ifndef INPUT_FUNCTIONS_H
 #define INPUT_FUNCTIONS_H
 
+/**
+ * A struct that holds an array of tokens that, when put together
+ * using spaces, form user input. It also holds the number of tokens
+ * in the array, along with the original string that typed by 
+ * the user of the shell.
+ */
 struct user_input {
     char **tokens;
     int num_tokens;
     char *original_string;
 };
+
+#define MAX_BUFFER 256
 
 /**
  * @brief Returns a pointer to a substring of string without leading\
