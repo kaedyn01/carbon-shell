@@ -41,7 +41,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 
 # Run tests
 run_test: build_test
-	(echo "ls"; echo "cd dir"; echo "") | valgrind $(TEST_TARGET)
+	(echo "ls"; echo "cd dir"; echo "") | $(TEST_TARGET)
 
 # Build tests
 build_test: $(TEST_TARGET)

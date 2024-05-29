@@ -279,11 +279,11 @@ char *get_input_line() {
  *
  * @see free_tokens() 
  */
-struct user_input *prompt(char *prompt_string) {
+struct user_input *prompt(char *prompt_string_to_display) {
     char *input_line = malloc(sizeof(char *));
     struct user_input *input = NULL;
 
-    printf("%s", prompt_string);
+    printf("%s", prompt_string_to_display);
 
     input_line = get_input_line();
     input = interpret_input(input_line);

@@ -331,29 +331,18 @@ bool get_input_line_test() {
     return true;
 }
 
-bool prompt_test() {
-    printf(">>> Starting test for prompt_test() <<<\n");
-
-	printf("Pass!\n\n");
-
-    return true;
-}
-
 int main(void) {
 	bool trim_whitespace_result = trim_whitespace_test();
     bool interpret_input_result = interpret_input_test();
     bool get_input_line_result = get_input_line_test();
-    bool prompt_result = prompt_test();
     bool all_tests_result = trim_whitespace_result &&
                             interpret_input_result &&
-                            get_input_line_result && 
-                            prompt_result;
+                            get_input_line_result;
 
     printf("********INPUT FUNCTIONS TEST********\n");
     printf("trim_whitespace test result:    %s\n\n", trim_whitespace_result ? "pass" : "fail");
     printf("interpret_input test result:    %s\n\n", interpret_input_result ? "pass" : "fail");
     printf("get_input_line test result:     %s\n\n", get_input_line_result ? "pass" : "fail");
-    printf("prompt test result:             %s\n\n", prompt_result ? "pass" : "fail");
     printf("ALL TESTS result:               %s\n", all_tests_result ? "pass" : "fail");
 
     return 0;	
