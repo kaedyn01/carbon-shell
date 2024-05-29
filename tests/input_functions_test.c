@@ -141,6 +141,9 @@ static bool is_user_input_struct_correct(
     return true;
 }
 
+/**
+ * @brief Structure for each interpret_input() test.
+*/
 static bool single_interpret_input_test(
     char **correct_tokens, 
     int correct_num_tokens, 
@@ -167,6 +170,9 @@ static bool single_interpret_input_test(
     return test_result;
 }
 
+/**
+ * @brief Tests the functionality of interpret_input().
+*/
 bool interpret_input_test() {
     printf(">>> Starting test for interpret_input_test() <<<\n");
 
