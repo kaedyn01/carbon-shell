@@ -6,6 +6,28 @@
 
 /**
  * @brief Tests the functionality of trim_whitespace().
+ * 
+ * This functions tests the functionality of trim_whitespace() in
+ * input_functions.c. This function will run through the following 
+ * scenarios: 
+ * 
+ * A normal case where there's whitespace to be trimmed.
+ * 
+ * A case where trimming isn't necessary.
+ * 
+ * A case where the input is all whitespace. 
+ * 
+ * A case where the input is an empty string.
+ * 
+ * A case where all the whitespace is in the middle of 
+ * the string. 
+ * 
+ * A case where the input only has leading whitespace.
+ * 
+ * A case where the input only has trailing whitespace.
+ * 
+ * @return A boolean value indicating whether trim_whitespace()
+ *      works.
  */
 bool trim_whitespace_test() {
     printf(">>> Starting test for trim_whitespace_test() <<<\n");
@@ -99,6 +121,16 @@ bool trim_whitespace_test() {
     return true;
 }
 
+/**
+ * @brief Frees the test vars allocated by interpret_input_test().
+ * 
+ * This helper function takes in an array of strings and a 
+ * user input struct and frees them. 
+ * 
+ * @param[in] array The array of strings that needs to be freed. 
+ * 
+ * @param[in] input_struct The user_input struct that needs to be freed.
+ */
 static void free_test_vars(char **array, struct user_input *input_struct) {
     for (int i = 0; array[i] != NULL; i++) {
         free(array[i]);
@@ -107,6 +139,25 @@ static void free_test_vars(char **array, struct user_input *input_struct) {
     free(input_struct);
 }
 
+/**
+ * @brief Compares a set of values with the elements in a user_input struct.
+ * 
+ * This function tells the caller whether the user_input struct is correct
+ * based on the values passed to the function. 
+ * 
+ * @param[in] correct_tokens An array of strings which is the array that 
+ *      should be contained within input_struct->tokens.
+ * 
+ * @param[in] correct_num_tokens An integer that should match input_struct->num_tokens.
+ * 
+ * @param[in] correct_original_string A string that should match
+ *      input_struct->original_string.
+ * 
+ * @param[in] input_struct The user_input struct that will be tested against 
+ *      all the previous paramaters. 
+ * 
+ * @return A boolean value that states whether the user_input_struct is correct.
+ */
 static bool is_user_input_struct_correct(
     char **correct_tokens, 
     int correct_num_tokens, 
@@ -143,7 +194,24 @@ static bool is_user_input_struct_correct(
 
 /**
  * @brief Structure for each interpret_input() test.
-*/
+ * 
+ * This function takes a set of independent variables and 
+ * runs a test scenario based on these variables. It then determines
+ * whether interpret_input() works with the given parameters.
+ * 
+ * @param[in] correct_tokens The tokens that the generated user_input
+ *      struct should have. 
+ * 
+ * @param[in] correct_num_tokens The number of tokens that should match
+ *      the num_tokens field in the generated user_input struct. 
+ * 
+ * @param[in] correct_original_string The string that should be 
+ *      contained within the original_string field within the generated
+ *      user_input struct. 
+ * 
+ * @return A boolean value indicated whether interpret_input() passed
+ *      the test with the given variables. 
+ */
 static bool single_interpret_input_test(
     char **correct_tokens, 
     int correct_num_tokens, 
@@ -172,7 +240,27 @@ static bool single_interpret_input_test(
 
 /**
  * @brief Tests the functionality of interpret_input().
-*/
+ * 
+ * This function runs through a series of scenarios to test the 
+ * functionality of interpret_input() in input_functions.c. The 
+ * functions runs through the following scenarios:
+ * 
+ * A case where input is normal (has more than on token and
+ * is formatted correctly).
+ * 
+ * A case where there's only one token. 
+ * 
+ * A case where the input is an empty string. 
+ * 
+ * A case where the input is only whitespace. 
+ * 
+ * A case where the input has no delimiters (where all the
+ * valid commands and args are there but they're seperated
+ * by something other than whitespace).
+ * 
+ * @return A boolean value indicating whether interpret_input()
+ *      works correctly under all the provided scenarios. 
+ */
 bool interpret_input_test() {
     printf(">>> Starting test for interpret_input_test() <<<\n");
 
@@ -268,6 +356,20 @@ bool interpret_input_test() {
     return true;
 }
 
+/**
+ * @brief Structure for each scenario in get_input_line_test().
+ * 
+ * This function provides the structure for each test within 
+ * get_input_line_test(). It takes a correct string that will 
+ * be compared to the actual string received from get_input_line().
+ * 
+ * @param[in] correct_string A string that will be compared to 
+ *      the value returned by get_input_line() to see if the 
+ *      function behaved correctly. 
+ * 
+ * @return A boolean value indicating whether get_input_line()
+ *      works given the provided variables. 
+ */
 bool single_get_input_line_test(char *correct_string) {
 	char *received_string = get_input_line();
 
@@ -277,6 +379,22 @@ bool single_get_input_line_test(char *correct_string) {
 	return result;
 }
 
+/**
+ * @brief Tests the functionality of get_input_line(). 
+ * 
+ * This function tests the functionality of get_input_line() defined 
+ * in input_functions.c. This function will run through the following
+ * scenarios: 
+ * 
+ * A case where input is normal. 
+ * 
+ * A case where the input has multiple tokens (i.e words). 
+ * 
+ * A case where the input is an empty string. 
+ * 
+ * @return A boolean indicating that get_input_line() works under all
+ *      tested scenarios. 
+ */
 bool get_input_line_test() {
     printf(">>> Starting test for get_input_line_test() <<<\n");
 	
@@ -331,6 +449,11 @@ bool get_input_line_test() {
     return true;
 }
 
+/**
+ * @brief Calls and displays the results of all the test functions.
+ * 
+ * @return An integer indicating the tests ran successfully.
+ */
 int main(void) {
 	bool trim_whitespace_result = trim_whitespace_test();
     bool interpret_input_result = interpret_input_test();
