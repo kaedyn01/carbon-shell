@@ -13,6 +13,7 @@ struct user_input {
     char *original_string;
 };
 
+// Max length that an input string can be.
 #define MAX_BUFFER 256
 
 /**
@@ -32,6 +33,37 @@ struct user_input {
  */
 char *trim_whitespace(char *string);
 
+/**
+ * @brief Splits string by passed delimeter.
+ *
+ * This function takes a string and delimeter as input, and
+ * splits the string into an array of substrings terminated
+ * by a null pointer. This function also stores the length
+ * of the array in the integer pointer num_tokens.
+ *
+ * @param[in] line The line that the user wants to split.
+ *
+ * @param[in] delim The delimiter that the string will by split\
+ *      by.
+ *
+ * @return An array of strings terminated by a null pointer.
+ */
+char **split_line(char *line, char *delim, int *num_tokens);
+
+/**
+ * @brief Takes a formatted input line and turns it into a user_input
+ *      struct. 
+ * 
+ * This function handles taking a user input string and breaking it up into 
+ * the components that go into a user_input struct. This allows parsing of input
+ * for arguments to be a lot easier.
+ * 
+ * @param[in] input_line A string without any leading or trailing whitespace, or 
+ *      without any newline characters. 
+ * 
+ * @return A user_input struct. See input_functions.h for more information on 
+ *      how a user_input struct is formatted. 
+*/
 struct user_input *interpret_input(char *input_line);
  
 /**
