@@ -16,7 +16,7 @@
  */
 void loop() {
     while (true) {
-        struct user_input *input = prompt("> ");
+        struct user_input *input = prompt_and_return("> ");
 
         if (input->tokens == NULL) {
             continue;

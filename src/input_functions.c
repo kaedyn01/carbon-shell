@@ -292,7 +292,7 @@ char *get_input_line() {
  *
  * @see free_tokens() 
  */
-struct user_input *prompt(char *prompt_string_to_display) {
+struct user_input *prompt_and_return(char *prompt_string_to_display) {
     char *input_line = malloc(sizeof(char *));
     struct user_input *input = NULL;
 

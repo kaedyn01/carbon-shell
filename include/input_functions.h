@@ -112,6 +112,6 @@ char *get_input_line();
  *
  * @see free_tokens() 
  */
-struct user_input *prompt(char *prompt_string);
+struct user_input *prompt_and_return(char *prompt_string);
 
 #endif
