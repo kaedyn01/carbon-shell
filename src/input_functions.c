@@ -5,8 +5,6 @@
 #include <ctype.h>
 #include "input_functions.h"
 
-#define MAX_BUFFER 256
-
 /**
  * @brief Returns a pointer to a substring of string without leading\
  *      and trailing whitespace. 
