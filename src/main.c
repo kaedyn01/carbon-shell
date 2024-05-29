@@ -15,11 +15,10 @@
  * @see ls() echo()
  */
 void loop() {
-    // TODO: Find out why program crashes when inputting more than one token.
     while (true) {
         struct user_input *input = prompt("> ");
 
-        if (input == NULL) {
+        if (input->tokens == NULL) {
             continue;
         } else if (strcmp(input->tokens[0], "ls") == 0) {
             ls();
@@ -30,13 +29,9 @@ void loop() {
         } else if (strcmp(input->tokens[0], "touch") == 0) {
             printf("TODO: IMPLEMENT touch\n");
         } else if (strcmp(input->tokens[0], "exit") == 0) {
-            free(input->num_tokens);
-            
             return;
         } else {
             printf("csh: command not found: %s\n", input->tokens[0]);
-            printf("input->num_tokens: %d\n", input->num_tokens);                   // TDWD
-            printf("input->original_string: \"%s\"\n", input->original_string);     // TDWD
         }
     }
 }
