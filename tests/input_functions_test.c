@@ -94,7 +94,7 @@ bool trim_whitespace_test() {
     }
     free(returned_string);
 
-	printf("Pass!\n");
+	printf("Pass!\n\n");
 
     return true;
 }
@@ -157,7 +157,12 @@ static bool single_interpret_input_test(
     );
 
     // Free memory of test inputs that requested it in interpret_input_test().
-    free_test_vars(correct_tokens, input_struct);
+	// Handle empty input case.
+	if (correct_tokens == NULL) {
+		free(input_struct);
+	} else {
+	    free_test_vars(correct_tokens, input_struct);
+	}
 
     return test_result;
 }
@@ -252,7 +257,7 @@ bool interpret_input_test() {
         return false;
     }
 
-	printf("Pass!\n");
+	printf("Pass!\n\n");
 
     return true;
 }
@@ -316,13 +321,14 @@ bool get_input_line_test() {
 	}
 	free(correct_string);
 
+	printf("Pass!\n\n");
     return true;
 }
 
 bool prompt_test() {
     printf(">>> Starting test for prompt_test() <<<\n");
 
-	printf("Pass!\n");
+	printf("Pass!\n\n");
 
     return true;
 }

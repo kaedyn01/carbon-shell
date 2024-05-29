@@ -25,7 +25,7 @@ struct user_input {
 char *trim_whitespace(char *string);
 
 struct user_input *interpret_input(char *input_line);
-
+ 
 /**
  * @brief Frees all the memory allocated by interpret_input().
  *

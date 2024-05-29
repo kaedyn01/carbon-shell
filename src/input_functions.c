@@ -57,13 +57,86 @@ char *trim_whitespace(char *string) {
     return substring;
 }
 
+/**
+ * @brief Splits string by passed delimeter.
+ *
+ * This function takes a string and delimeter as input, and
+ * splits the string into an array of substrings terminated
+ * by a null pointer. This function also stores the length
+ * of the array in the integer pointer num_tokens.
+ *
+ * @param[in] line The line that the user wants to split.
+ *
+ * @param[in] delim The delimiter that the string will by split\
+ *      by.
+ *
+ * @return An array of strings terminated by a null pointer.
+ */
+char **split_line(char *line, char *delim, int *num_tokens) {
+    // Handle no command case.
+    if (strcmp(line, "") == 0) {
+        return NULL;
+    }
+
+    char *line_copy = NULL;
+    int count = 0;
+    char *token = NULL;
+    char **tokens = NULL;
+
+    // Handle case where line is too short to be split.
+    if (strlen(line) < strlen(delim) + 2) {
+        tokens = malloc(2 * sizeof(char *));
+        tokens[0] = strdup(line);
+        tokens[1] = NULL;
+        *num_tokens = 1;
+        return tokens;
+    }
+
+    // Count number of tokens.
+    line_copy = strdup(line);
+    token = strtok(line_copy, delim);
+    while (token != NULL) {
+        count++;
+        token = strtok(NULL, delim);
+    }
+    free(line_copy);
+
+    // Allocate memory for the array of lines.
+    tokens = malloc((count + 1) * sizeof(char *));
+    if (tokens == NULL) {
+        fprintf(stderr, "Memory allocation failed\n");
+        exit(1);
+    }
+
+    // Split the line and store the tokens.
+    line_copy = strdup(line); // Make another copy of the input line.
+    count = 0;
+    token = strtok(line_copy, delim);
+    while (token != NULL) {
+        tokens[count] = strdup(token);
+        count++;
+        token = strtok(NULL, delim);
+    }
+    tokens[count] = NULL;
+    free(line_copy);
+
+    *num_tokens = count;
+    return tokens;
+}
+
 // TODO: Finish implementing.
 struct user_input *interpret_input(char *input_line) {
     // Handle edge cases.
     // Empty string
     bool empty = strcmp(input_line, "") == 0;
     if (empty) {
-        return NULL;
+		struct user_input *input_struct = malloc(sizeof(struct user_input *));
+
+        input_struct->tokens = NULL;
+        input_struct->num_tokens = 0;
+        input_struct->original_string = strdup(input_line);
+
+		return input_struct;
     }
 
     // All whitespace. 
@@ -76,11 +149,16 @@ struct user_input *interpret_input(char *input_line) {
             break;
         }
     }
-
     free(temp_line);
 
     if (all_whitespace) {
-        return NULL;
+		struct user_input *input_struct = malloc(sizeof(struct user_input *));
+
+        input_struct->tokens = NULL;
+        input_struct->num_tokens = 0;
+        input_struct->original_string = strdup(input_line);
+
+		return input_struct;
     }
 
     // No delimiters in string.
@@ -108,21 +186,28 @@ struct user_input *interpret_input(char *input_line) {
         return input_struct;
     }
 	
-	// Handle Normal Cases.
-    // TODO: Implement rest.
+	// Init variables. 
+	int *num_tokens = malloc(sizeof(int));
+	*num_tokens = 0; 
+	char *delim = malloc(sizeof(char));
+	*delim = ' ';
+	char **tokens = split_line(input_line, delim, num_tokens);
 
-    // Init variables.
-        // args count
-        // string array 
-        // temp string 
+	// Create input struct. 
+	struct user_input *input_struct = malloc(sizeof(struct user_input *));
 
-    // Split input line.
+	input_struct->tokens = malloc((*num_tokens + 1) * sizeof(char *));	// +1 for NULL delim.
+	for (int i = 0; i < *num_tokens; i++) {
+		input_struct->tokens[i] = strdup(tokens[i]);
+	}
+	input_struct->tokens[*num_tokens] = NULL; 
+	input_struct->num_tokens = *num_tokens;
+	input_struct->original_string = strdup(input_line);
 
-    // Free mem.
+	// Free memory used by split_line().
+	free_tokens(tokens);
 
-    // Return.
-
-    return NULL;
+	return input_struct;
 }
 
 /**
