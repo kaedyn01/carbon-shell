@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
-#include "input_functions.h"
+#include "built_in_commands.h"
 
 bool ls_logic_test() {
     printf(">>> Starting test for ls_logic() <<<\n");
@@ -24,17 +24,6 @@ bool mkdir_logic_test() {
 
 bool touch_logic_test() {
     printf(">>> Starting test for touch_logic() <<<\n");
-
-    return true;
-}
-
-bool echo() {
-    printf(">>> Starting test for echo_logic() <<<\n");
-
-    // Send the text from stdout to file read back later. 
-    freopen("test_echo.txt", "w", stdout);
-
-    
 
     return true;
 }

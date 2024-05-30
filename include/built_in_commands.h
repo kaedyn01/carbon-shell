@@ -9,6 +9,10 @@
  */
 void ls();
 
+void cd_logic(char *destination_dir);
+
+void cd(struct user_input *input);
+
 /**
  * @brief Prints inputted string to the stdout.
  *

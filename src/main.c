@@ -23,7 +23,7 @@ void loop() {
         } else if (strcmp(input->tokens[0], "ls") == 0) {
             ls();
         } else if (strcmp(input->tokens[0], "cd") == 0) {
-            printf("TODO: IMPLEMENT cd\n");
+            cd(input);
         } else if (strcmp(input->tokens[0], "mkdir") == 0) {
             printf("TODO: IMPLEMENT mkdir\n");
         } else if (strcmp(input->tokens[0], "touch") == 0) {

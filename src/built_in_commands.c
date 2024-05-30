@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <dirent.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include "built_in_commands.h"
+#include "input_functions.h"
 
 /**
  * @brief Lists all files in working directory.
@@ -22,6 +25,37 @@ void ls() {
     }
 
     closedir(dp);
+}
+
+// We can assume dir is always formatted correctly for this
+// function. Incorrectly formatted input will be handled in cd().
+// TODO: Make entering "~" a viable command for cd. 
+void cd_logic(char *destination_dir) {
+    if (chdir(destination_dir) != 0) {
+        perror("chdir failed\n");
+        abort();
+    }
+
+    char cwd[1024];
+    if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        printf("Current working directory: %s\n", cwd);
+    } else {
+        perror("getcwd failed\n");
+        abort();
+    }
+}
+
+// TODO: Fix declaration error. 
+void cd(struct user_input *input) {
+    // Handle incorrect input.
+    if (input->num_tokens != 2) {
+        perror("incorrect number of args\n");
+        return;
+    }   
+
+    cd_logic(input->tokens[1]);
+
+    return;
 }
 
 /**
