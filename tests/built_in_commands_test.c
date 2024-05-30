@@ -31,6 +31,11 @@ bool touch_logic_test() {
 bool echo() {
     printf(">>> Starting test for echo_logic() <<<\n");
 
+    // Send the text from stdout to file read back later. 
+    freopen("test_echo.txt", "w", stdout);
+
+    
+
     return true;
 }
 
