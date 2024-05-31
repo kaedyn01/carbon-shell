@@ -2,27 +2,27 @@
 #include <stdbool.h>
 #include <string.h>
 #include <stdlib.h>
-#include "built_in_commands.h"
+#include "input_functions.h"
 
-bool ls_logic_test() {
+bool ls_test() {
     printf(">>> Starting test for ls_logic() <<<\n");
 
     return true;
 }
 
-bool cd_logic_test() {
+bool cd_test() {
     printf(">>> Starting test for cd_logic() <<<\n");
 
     return true;
 }
 
-bool mkdir_logic_test() {
+bool mkdir_test() {
     printf(">>> Starting test for mkdir_logic() <<<\n");
 
     return true;
 }
 
-bool touch_logic_test() {
+bool touch_test() {
     printf(">>> Starting test for touch_logic() <<<\n");
 
     return true;
