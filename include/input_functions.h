@@ -50,6 +50,8 @@ char *trim_whitespace(char *string);
  */
 char **split_line(char *line, char *delim, int *num_tokens);
 
+void free_user_input(struct user_input *input);
+
 /**
  * @brief Takes a formatted input line and turns it into a user_input
  *      struct. 
