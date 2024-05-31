@@ -122,6 +122,18 @@ char **split_line(char *line, char *delim, int *num_tokens) {
     return tokens;
 }
 
+void free_user_input(struct user_input *input) {
+    if (input->tokens != NULL) {
+        for (int i = 0; input->tokens[i] != NULL; i++) {
+            free(input->tokens[i]);
+        }        
+    }
+    
+    if (input->original_string != NULL) {
+        free(input->original_string);
+    }
+}
+
 /**
  * @brief Takes a formatted input line and turns it into a user_input
  *      struct. 
@@ -293,13 +305,15 @@ char *get_input_line() {
  * @see free_tokens() 
  */
 struct user_input *prompt_and_return(char *prompt_string_to_display) {
-    char *input_line = malloc(sizeof(char *));
-    struct user_input *input = NULL;
+    char *input_line = NULL;
+    struct user_input *input_struct = NULL;
 
     printf("%s", prompt_string_to_display);
 
     input_line = get_input_line();
-    input = interpret_input(input_line);
+    input_struct = interpret_input(input_line);
+
+    free(input_line);
     
-    return input;
+    return input_struct;
 }
