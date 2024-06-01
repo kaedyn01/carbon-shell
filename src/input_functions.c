@@ -81,9 +81,9 @@ char **get_args() {
     args[num_args] = NULL;
 
     // Populate array with all of the args. 
-    int b = 0;
-    int e = 1;
-    int i = 0; 
+    int b = 0;	// Beginning of substring.
+    int e = 1;	// End of substring.
+    int i = 0; 	// Current arg.
     while (num_args > 0) {
         if (line[e] == '\0') {
             if (!isspace(line[e - 1])) {
