@@ -11,7 +11,7 @@
  */
 void ls();
 
-int cd(struct user_input *input);
+int cd(char **args);
 
 /**
  * @brief Prints inputted string to the stdout.
