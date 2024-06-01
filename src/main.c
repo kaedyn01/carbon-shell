@@ -16,13 +16,15 @@
  */
 void loop() {
     while (true) {
-        struct user_input *input = prompt_and_return("> ");
+        char **args = get_args();
 
-        if (input->tokens == NULL) {
+        if (args[0] == NULL) {
+            free_args(args);
             continue;
-        } else if (strcmp(input->tokens[0], "ls") == 0) {
+        } else if (strcmp(args[0], "ls") == 0) {
             ls();
-        } else if (strcmp(input->tokens[0], "cd") == 0) {
+        } else if (strcmp(args[0], "cd") == 0) {
+            /**
             int result = cd(input);
             if (result == 1) {
                 printf("Did not specify which directory to change to.\n");
@@ -30,17 +32,18 @@ void loop() {
             } else if (result == 2) {
                 printf("The directory entered doesn't exist, please try again.\n");
             }
-        } else if (strcmp(input->tokens[0], "mkdir") == 0) {
+            */
+        } else if (strcmp(args[0], "mkdir") == 0) {
             printf("TODO: IMPLEMENT mkdir\n");
-        } else if (strcmp(input->tokens[0], "touch") == 0) {
+        } else if (strcmp(args[0], "touch") == 0) {
             printf("TODO: IMPLEMENT touch\n");
-        } else if (strcmp(input->tokens[0], "exit") == 0) {
+        } else if (strcmp(args[0], "exit") == 0) {
             return;
         } else {
-            printf("csh: command not found: %s\n", input->tokens[0]);
+            printf("csh: command not found: %s\n", args[0]);
         }
 
-        free_user_input(input);
+        free_args(args);
     }
 }
 
@@ -52,8 +55,29 @@ void loop() {
  * @return An integer indicating the shell ran successfully. 
  */
 int main(void) {
-    
-    loop();
+
+    char **args = get_args();
+
+    for (int i = 0; args[i] != NULL; i++) {
+        printf("\"%s\"\n", args[i]);
+    }
+    if (args == NULL) {
+        printf("args is NULL.\n");
+    }
+    if (args[0] == NULL) {
+        printf("First elem is NULL.\n");
+    }
+
+    printf("{ ");
+    for (int i = 0; args[i] != NULL; i++) {
+        for (int j = 0; args[i][j] != '\0'; j++) {
+            printf("\'%c\', ", args[i][j]);
+        }
+        printf("\n");
+    }
+    printf(" }\n");
+
+    // loop();
 
     return 0;
 }
