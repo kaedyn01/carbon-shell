@@ -27,12 +27,12 @@ void ls() {
     closedir(dp);
 }
 
-int cd(struct user_input *input) {
-    if (input->num_tokens != 2) {
+int cd(char **args) {
+    if (args_len(args) != 2) {
         return 1;
     }
 
-    char *destination_dir = input->tokens[1];
+    char *destination_dir = args[1];
 
     if (chdir(destination_dir) != 0) {
         return 2;
