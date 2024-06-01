@@ -80,7 +80,7 @@ char **get_args() {
     args = malloc((num_args + 1) * sizeof(char *));
     args[num_args] = NULL;
 
-    // Populate args with all of the args. 
+    // Populate array with all of the args. 
     int b = 0;
     int e = 1;
     int i = 0; 
