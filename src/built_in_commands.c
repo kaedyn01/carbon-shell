@@ -66,6 +66,15 @@ void pwd() {
    printf("%s\n", getcwd(cwd, sizeof(cwd)));
 }
 
+/**
+ * @brief Given a directory name, makes a directory with the given name.
+ *
+ * Given a string dir_name representing the new directory name,
+ * attempts to create a directory with that name. The new directory
+ * is created and read, write, and execute permissions are given to 
+ * everyone by default. If the directory creation failes, the function
+ * will print an error to the stdout.
+ */
 void mkdir_custom(char *dir_name) {
 	mode_t permissions = 0777;	// Gives everyone read, write, and execute access.
 	int mkdir_result = mkdir(dir_name, permissions);
@@ -75,6 +84,12 @@ void mkdir_custom(char *dir_name) {
 	}
 }
 
+/**
+ * @brief Creates a file named file_name. 
+ *
+ * This function takes the string passed to it and creates a new
+ * file with that name. 
+ */
 void touch(char *file_name) {
 	char *mode = "w+";	
 	FILE *file = fopen(file_name, mode);
