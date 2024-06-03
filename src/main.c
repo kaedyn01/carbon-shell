@@ -24,22 +24,22 @@ void loop() {
         } else if (strcmp(args[0], "ls") == 0) {
             ls();
         } else if (strcmp(args[0], "cd") == 0) {
-            /**
-            int result = cd(input);
+            int result = cd(args);
             if (result == 1) {
                 printf("Did not specify which directory to change to.\n");
                 printf("Use: cd /exmaple/directory\n");
             } else if (result == 2) {
                 printf("The directory entered doesn't exist, please try again.\n");
             }
-            */
         } else if (strcmp(args[0], "mkdir") == 0) {
-            printf("TODO: IMPLEMENT mkdir\n");
+			mkdir_custom(args[1]);
         } else if (strcmp(args[0], "touch") == 0) {
-            printf("TODO: IMPLEMENT touch\n");
+            touch(args[1]);
         } else if (strcmp(args[0], "exit") == 0) {
             return;
-        } else {
+        } else if (strcmp(args[0], "pwd") == 0) {
+			pwd();
+		} else {
             printf("csh: command not found: %s\n", args[0]);
         }
 
@@ -56,6 +56,7 @@ void loop() {
  */
 int main(void) {
 
+	/**
     char **args = get_args();
 
     for (int i = 0; args[i] != NULL; i++) {
@@ -76,8 +77,9 @@ int main(void) {
         printf("\n");
     }
     printf(" }\n");
+	*/
 
-    // loop();
+    loop();
 
     return 0;
 }

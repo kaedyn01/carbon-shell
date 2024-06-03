@@ -33,6 +33,8 @@ void free_args(char **args) {
  * This function takes an array of string terminated by a NULL
  * reference and returns the length. 
  *
+ * @param[in] An array of strings terminated by a NULL reference. 
+ *
  * @return Length of args. 
  */
 int args_len(char **args) {
