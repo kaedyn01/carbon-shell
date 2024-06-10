@@ -11,7 +11,8 @@ project.
 
 ## Installation
 
-1. Clone the repository to your chosen directory. This is often done with a command such as
+1. Clone the repository to your chosen directory. This is often done with a command along the 
+lines of
 ```
 git clone https://github.com/kaedyn01/carbon-shell.git
 ```
@@ -31,3 +32,12 @@ directory:
 ```
 
 You can then use Carbone Shell like you would use any other shell. 
+
+## Testing 
+
+If you would like to test the program's functionality you can do so by running the following
+command at the top of the project directory:
+```
+make run_test
+```
+
