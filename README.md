@@ -16,4 +16,18 @@ project.
 git clone https://github.com/kaedyn01/carbon-shell.git
 ```
 
-2. 
+2. Next, you'll need to build the project. You can do this by running the following command:
+```
+make build 
+```
+This will build the program and put a working executable named *csh* in the build folder.
+
+## Usage 
+
+You can then run the program by typing in the following commands whilst at the top of the project
+directory:
+```
+./build/csh
+```
+
+You can then use Carbone Shell like you would use any other shell. 
