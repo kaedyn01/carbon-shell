@@ -74,6 +74,11 @@ void pwd() {
  * is created and read, write, and execute permissions are given to 
  * everyone by default. If the directory creation failes, the function
  * will print an error to the stdout.
+ *
+ * Named mkdir_custom because it will conflict with the built in mkdir
+ * when calling this function if it's also named mkdir. 
+ *
+ * param[in] dir_name Name of the directory that will be created.
  */
 void mkdir_custom(char *dir_name) {
 	mode_t permissions = 0777;	// Gives everyone read, write, and execute access.
@@ -89,6 +94,8 @@ void mkdir_custom(char *dir_name) {
  *
  * This function takes the string passed to it and creates a new
  * file with that name. 
+ *
+ * param[in] file_name Name of the file that will be created.
  */
 void touch(char *file_name) {
 	char *mode = "w+";	
