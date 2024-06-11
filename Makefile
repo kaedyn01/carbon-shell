@@ -40,11 +40,11 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Run tests
-run_test: build_test
+run_tests: build_tests
 	(echo "ls"; echo "cd dir"; echo "") | $(TEST_TARGET)
 
 # Build tests
-build_test: $(TEST_TARGET)
+build_tests: $(TEST_TARGET)
 
 # Build the test executable
 $(TEST_TARGET): $(TEST_OBJ_FILES) $(OBJ_FILES)
