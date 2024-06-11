@@ -25,7 +25,7 @@ bool get_args_test() {
  * @return An integer indicating the tests ran successfully.
  */
 int main(void) {
-	printf("Implement\n");
+	printf("Implement\n");	// TODO
 
 	return 0;	
 }
