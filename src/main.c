@@ -61,7 +61,6 @@ void loop() {
 
 			char *command = strdup(args[0]);
 			for (int i = 1; args[i] != NULL; i++) {
-				printf("About to concat commands.\n");
 				strcat(command, " ");
 				strcat(command, args[i]);
 			}

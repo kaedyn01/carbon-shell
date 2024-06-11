@@ -42,6 +42,7 @@ int args_len(char **args) {
     int i = 0;
     while(args[i] != NULL) {
         num_args++;
+		i++;
     }
 
     return num_args;
