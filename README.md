@@ -40,4 +40,5 @@ command at the top of the project directory:
 ```
 make run_test
 ```
-
+This will build the shell and test program, outputting the results of the test to the standard
+output.
