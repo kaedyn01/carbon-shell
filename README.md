@@ -4,7 +4,7 @@ It has incredible features such as *echo*, *exit*, and so much more!
 
 ## Prerequisites 
 
-This program is intended to run in a unix like environment (macOS, Linux, FreeBSD, etc.).
+This program is intended to run in a Unix-like environment (macOS, Linux, FreeBSD, etc.).
 
 You will also need to have [make](https://www.gnu.org/software/make/) installed to build the 
 project. 
@@ -31,7 +31,7 @@ directory:
 ./build/csh
 ```
 
-You can then use Carbone Shell like you would use any other shell. 
+You can then use Carbon Shell like you would use any other shell. 
 
 ## Testing 
 
