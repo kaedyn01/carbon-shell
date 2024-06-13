@@ -41,7 +41,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 
 # Run tests
 run_tests: build_tests
-	(echo "ls"; echo "cd dir"; echo "") | $(TEST_TARGET)
+	$(TEST_TARGET)
 
 # Build tests
 build_tests: $(TEST_TARGET)
