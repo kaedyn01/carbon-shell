@@ -19,12 +19,19 @@
  * @see interpret_input()
  */
 void free_args(char **args) {
+	if (args == NULL) {
+		return;		// Already freed.
+	}
+
     for(int i = 0; args[i] != NULL; i++) {
         free(args[i]);
 		args[i] = NULL;	// Marks that input[i] is free.
+		printf("freed one elem.\n");	// TDWD
     }
     free(args);
 	args = NULL;	// Marks that input is free. 
+	
+	printf("args = %s\n", args == NULL ? "NULL" : "non-null"); // TDWD
 }
 
 /**
