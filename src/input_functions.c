@@ -26,12 +26,9 @@ void free_args(char **args) {
     for(int i = 0; args[i] != NULL; i++) {
         free(args[i]);
 		args[i] = NULL;	// Marks that input[i] is free.
-		printf("freed one elem.\n");	// TDWD
     }
     free(args);
 	args = NULL;	// Marks that input is free. 
-	
-	printf("args = %s\n", args == NULL ? "NULL" : "non-null"); // TDWD
 }
 
 /**
@@ -45,6 +42,10 @@ void free_args(char **args) {
  * @return Length of args. 
  */
 int args_len(char **args) {
+	if (args == NULL) {
+		return 0;
+	}
+
     int num_args = 0;
     int i = 0;
     while(args[i] != NULL) {
