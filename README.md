@@ -38,7 +38,7 @@ You can then use Carbon Shell like you would use any other shell.
 If you would like to test the program's functionality you can do so by running the following
 command at the top of the project directory:
 ```
-make run_test
+make run_tests
 ```
 This will build the shell and test program, outputting the results of the test to the standard
 output.
